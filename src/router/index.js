@@ -7,6 +7,8 @@ import RegisterView from '../views/RegisterView.vue'
 import ProfileView from '../views/ProfileView.vue'
 //import NewAnimalView from '../views/NewAnimalView.vue'
 import LandingPageView from '../views/LandingPageView.vue'
+import StudentFeedView from '../views/StudentFeedView.vue'
+import TeacherFeedView from '../views/TeacherFeedView.vue'
 
 
 Vue.use(VueRouter)
@@ -18,7 +20,7 @@ const routes = [
     component: LoginView
   },
   {
-    path: '/register',
+    path: '/registration',
     name: 'register-view',
     component: RegisterView
   },
@@ -31,6 +33,16 @@ const routes = [
     path: '/landing',
     name: 'landing-page-view',
     component: LandingPageView
+  },
+  {
+    path: '/studentfeed',
+    name: 'student-feed-view',
+    component: StudentFeedView
+  },
+  {
+    path: '/teacherfeed',
+    name: 'teacher-feed-view',
+    component: TeacherFeedView
   }
 ]
 const router = new VueRouter({
