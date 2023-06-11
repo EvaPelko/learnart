@@ -5,7 +5,7 @@
                 <v-card class="card-border" width="600px" outlined>
                     <v-card-title align="left">REGISTER</v-card-title>
                     <v-card-subtitle align="left">
-                        Deer user, plz register
+                        Dear user, please register
                     </v-card-subtitle>
                     <v-card-text>
                         <v-form v-model="valid">
