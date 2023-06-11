@@ -5,7 +5,8 @@
         <div class="d-flex align-center">
 
           <v-img alt="Gameart Logo" class="shrink mr-2" contain
-            src="https://cdn-icons-png.flaticon.com/512/7595/7595464.png" transition="scale-transition" width="60" />
+            src="https://www.nicepng.com/png/full/171-1710349_game-controller-pixel-game-controller.png"
+            transition="scale-transition" width="60" />
 
           <v-app-bar-title>GAMEART</v-app-bar-title>
         </div>
@@ -37,7 +38,7 @@
             <v-icon size="24px">{{ icon }}</v-icon>
           </v-btn>
         </v-card-text>
-        <v-card-text class="pt-0">Uči crtati</v-card-text>
+        <v-card-text class="pt-0">Learn to art</v-card-text>
         <v-divider color="yellow"></v-divider>
         <v-card-text>
           {{ new Date().getFullYear() }} —

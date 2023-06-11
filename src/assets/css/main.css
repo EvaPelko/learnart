@@ -1,5 +1,14 @@
+@font-face {
+    font-family: "Atari Classic";
+    src: url('../atari-font/AtariClassic-gry3.ttf');
+    src: url('../atari-font/AtariClassic-gry3.ttf') format('ttf'),
+    
+  
+         
+  }
+
 .v-application {
-    font-family: Arial, Helvetica, sans-serif !important;
+    font-family: "Atari classic", Helvetica, sans-serif !important;
      .title { 
         font-family: sans-serif !important;
      }
