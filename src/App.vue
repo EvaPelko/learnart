@@ -1,14 +1,14 @@
 <template>
   <v-app>
-    <v-app-bar flat max-height="65">
+    <v-app-bar flat max-height="65" class="purple-lighten-3">
       <v-app-bar app height=90>
         <div class="d-flex align-center">
 
-          <v-img alt="Gameart Logo" class="shrink mr-2" contain
-            src="https://www.nicepng.com/png/full/171-1710349_game-controller-pixel-game-controller.png"
-            transition="scale-transition" width="60" />
-
-          <v-app-bar-title>GAMEART</v-app-bar-title>
+          <a href="/landing"><v-img alt="Gameart Logo" class="shrink mr-2" contain
+              src="https://www.nicepng.com/png/full/171-1710349_game-controller-pixel-game-controller.png"
+              transition="scale-transition" width="60" />
+          </a>
+          <v-app-bar-title class="text-no-wrap">GAMEART</v-app-bar-title>
         </div>
         <v-spacer></v-spacer>
         <v-btn text to="/landing">Landing</v-btn>
@@ -49,7 +49,12 @@
     </v-content>
   </v-app>
 </template>
-
+<style>
+.v-app-bar-title__content {
+  width: 300px !important;
+  font-size: 1.5em;
+}
+</style>
 <script>
 import HeaderComponent from "./components/HeaderComponent.vue";
 import FooterComponent from "./components/FooterComponent.vue";

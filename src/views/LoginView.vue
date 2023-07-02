@@ -2,7 +2,7 @@
     <v-container fill-height fluid class="background">
         <v-row align="center" justify="center">
             <v-col align="center" justify="center" cols="12">
-                <v-card class="card-border" width="600px" outlined>
+                <v-card class="card-border rounded-0" width="600px" outlined color="#ffffcc">
                     <v-card-title align="left">LOGIN</v-card-title>
                     <v-card-subtitle align="left">
                         Dear user, please login
@@ -49,6 +49,7 @@
         </v-row>
     </v-container>
 </template>
+
 <script>
 import {
     auth,
