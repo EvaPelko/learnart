@@ -1,7 +1,9 @@
 <template>
-  <div>teacher feed
+  <v-container>
+    <div>teacher feed
 
-  </div>
+    </div>
+  </v-container>
 </template>
 
 <script>

@@ -1,8 +1,10 @@
 <template>
     <v-container fill-height fluid class="background">
+
         <v-row align="center" justify="center">
+            <h1 class="stroke">GAMEART</h1>
             <v-col align="center" justify="center" cols="12">
-                <v-card class="card-border rounded-0" width="600px" outlined color="#ffffcc">
+                <v-card class="card-border rounded-0" width="600px" outlined color="#FFF7D0">
                     <v-card-title align="left">LOGIN</v-card-title>
                     <v-card-subtitle align="left">
                         Dear user, please login

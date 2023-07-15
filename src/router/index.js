@@ -9,11 +9,18 @@ import ProfileView from '../views/ProfileView.vue'
 import LandingPageView from '../views/LandingPageView.vue'
 import StudentFeedView from '../views/StudentFeedView.vue'
 import TeacherFeedView from '../views/TeacherFeedView.vue'
+import WelcomeView from '../views/WelcomeView.vue'
 
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/',
+    name: 'welcome-view',
+    component: WelcomeView,
+    meta: { excludeFromAppTemplate: true },
+  },
   {
     path: '/login',
     name: 'login-view',

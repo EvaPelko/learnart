@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar flat max-height="65" class="purple-lighten-3">
+    <v-app-bar flat max-height="65" class="purple-lighten-3" background="#FFF7D0">
       <v-app-bar app height=90>
         <div class="d-flex align-center">
 
@@ -37,6 +37,7 @@
           <v-btn v-for="icon in icons" :key="icon" class="mx-4" icon>
             <v-icon size="24px">{{ icon }}</v-icon>
           </v-btn>
+
         </v-card-text>
         <v-card-text class="pt-0">Learn to art</v-card-text>
         <v-divider color="yellow"></v-divider>
@@ -53,6 +54,15 @@
 .v-app-bar-title__content {
   width: 300px !important;
   font-size: 1.5em;
+}
+</style>
+<style scoped>
+.v-application {
+  background-color: #99CBDB;
+}
+
+v-container {
+  color: #FFF7D0;
 }
 </style>
 <script>

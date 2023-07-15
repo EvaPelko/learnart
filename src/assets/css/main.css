@@ -12,4 +12,34 @@
      .title { 
         font-family: sans-serif !important;
      }
+     background-color: #99CBDB;
   }
+p {
+   color: #3C2525;
+   text-align: center;
+   letter-spacing: -4px;
+}
+
+h1 {
+   color: #3C2525;
+   text-align: center;
+   letter-spacing: -1px;
+}
+h2 {
+   color: #3C2525;
+   text-align: center;
+   letter-spacing: -4px;
+}
+
+ #div-color {
+   background-color: #FFF7D0;
+ }
+
+ .stroke {
+   
+  text-shadow:
+   -3px -3px 0 #ffffff,  
+    3px -3px 0 #ffffff,
+    -3px 3px 0 #ffffff,
+     3px 3px 0 #ffffff;
+ }

@@ -1,8 +1,9 @@
 <template>
     <v-container fill-height fluid class="background">
         <v-row align="center" justify="center">
+            <h1 class="stroke">GAMEART</h1>
             <v-col align="center" justify="center" cols="12">
-                <v-card class="card-border" width="600px" outlined>
+                <v-card class="card-border" width="600px" outlined color="#FFF7D0">
                     <v-card-title align="left">REGISTER</v-card-title>
                     <v-card-subtitle align="left">
                         Dear user, please register
