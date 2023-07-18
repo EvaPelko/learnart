@@ -12,8 +12,8 @@
      .title { 
         font-family: sans-serif !important;
      }
-     background-color: #99CBDB;
-  }
+     background-color: #99CBDB !important;
+}
 p {
    color: #3C2525;
    text-align: center;
@@ -36,10 +36,21 @@ h2 {
  }
 
  .stroke {
-   
   text-shadow:
    -3px -3px 0 #ffffff,  
     3px -3px 0 #ffffff,
     -3px 3px 0 #ffffff,
      3px 3px 0 #ffffff;
  }
+ .stroke-mini {
+   text-shadow:
+    -1px -1px 0 #ffffff,  
+     1px -1px 0 #ffffff,
+     -1px 1px 0 #ffffff,
+      1px 1px 0 #ffffff;
+   
+      
+}
+.v-container{
+   padding: 525px;
+}

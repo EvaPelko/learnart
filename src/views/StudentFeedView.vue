@@ -1,5 +1,8 @@
 <template>
-  <div>student feed</div>
+  <v-container>
+    <v-spacer></v-spacer>
+    <div>student feed</div>
+  </v-container>
 </template>
 
 <script>

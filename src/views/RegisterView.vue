@@ -19,6 +19,10 @@
                             <v-text-field v-model="password" dense label="Password" clearble :append-icon="showIcon ? 'mdi-eye' : 'mdi-eye-off'
                                 " :rules="[rules.required, rules.min]" :type="showIcon ? 'text' : 'password'"
                                 outlined></v-text-field>
+                            <v-select label="Select Level of Experience"
+                                :items="['Beginner', 'Intermediate', 'Advanced', 'Professional']"
+                                variant="outlined"></v-select>
+                            <v-checkbox label="I want to be a teacher"></v-checkbox>
                         </v-form>
                     </v-card-text>
                     <v-card-actions class="card-actions">

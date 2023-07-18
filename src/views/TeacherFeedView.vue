@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <div>teacher feed
+    <div id="div-color">
+      <h1>Teacher Feed</h1>
 
     </div>
   </v-container>
