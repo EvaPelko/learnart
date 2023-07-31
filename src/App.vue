@@ -32,7 +32,7 @@
 
 
 
-      <v-footer color="#EBE2B4" width="1000">
+      <v-footer color="#EBE2B4" absolute>
         <v-row justify="center" no-gutters>
           <v-btn v-for="link in links" :key="link" color="#99CBDB" variant="text" class="mx-2">
             {{ link }}

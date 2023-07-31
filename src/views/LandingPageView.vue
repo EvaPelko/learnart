@@ -30,29 +30,43 @@
             <br><br>
             <p>Featured teacher post</p>
 
-            <v-card height="350px" max-width="800" color="#EBE2B4" class="mx-auto my-12">
-              <v-img height="200" src="../assets/hand-drawing.jpg"> </v-img>
-              <v-card-item>
-                <v-card-title>How to draw a hand</v-card-title>
+            <v-card :to="'/post'" exact tile height="350px" max-width="800" color="#EBE2B4" class="mx-auto my-12">
+              <div class="d-flex">
+                <div>
+                  <v-avatar class="ma-4" size="320" rounded="0">
+                    <v-img src="../assets/hand-drawing.jpg"> </v-img>
+                  </v-avatar>
 
-                <v-card-subtitle>Jane Smith</v-card-subtitle>
-              </v-card-item>
+                </div>
+                <div>
+                  <br>
+                  <v-card-title>How to draw a hand</v-card-title>
+                  <v-card-text class="text-left">
+                    Drawing hands can be challenging, but with practice and some tips, you can improve your hand-drawing
+                    skills. Here's a step-by-step guide to help you get started:
 
-              <v-card-text>
-                Drawing hands can be challenging, but with practice and some tips, you can improve your hand-drawing
-                skills. Here's a step-by-step guide to help you get started:
+                    Study Hand Anatomy: Understanding the basic structure... <span style="color: #2A26FF">Read
+                      more</span>
+                  </v-card-text>
 
-                Study Hand Anatomy: Understanding the basic structure... <span style="color: #2A26FF">Read more</span>
-              </v-card-text>
+                  <v-avatar class="ma-1" size="50">
+                    <v-img src="../assets/User.jpg"> </v-img>
+                  </v-avatar>
+                  <v-card-subtitle>Jane Smith</v-card-subtitle>
+                </div>
+              </div>
             </v-card>
+            <br>
+            <div class="d-flex justify-space-between">
+              <v-img src="../assets/me-chibi-left.png" align="right" width="200"></v-img>
 
-            <v-img src="../assets/me-chibi-left.png" align="right" width="200"></v-img>
-            <p>
-              Join our vibrant community of like-minded individuals who share your passion for art!
-
-              Connect with fellow learners, engage in lively discussions, and embark on collaborative projects that will
-              challenge and expand your creative horizons!
-            </p>
+              <p>
+                Join our vibrant community of like-minded individuals who share your passion for art!
+                <br><br>
+                Connect with fellow learners, engage in lively discussions, and embark on collaborative projects that will
+                challenge and expand your creative horizons!
+              </p>
+            </div>
           </div>
         </v-col>
       </v-row>

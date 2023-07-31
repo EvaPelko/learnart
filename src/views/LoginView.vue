@@ -95,7 +95,7 @@ export default {
             let password = this.password;
             signInWithEmailAndPassword(auth, email, password)
                 .then(() => {
-                    this.$router.push("/animals");
+                    this.$router.push("/landing");
                 })
                 .catch((error) => {
                     alert(error.message);

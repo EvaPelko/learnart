@@ -2,7 +2,7 @@
   <v-container>
     <div id="div-color">
       <h1>Teacher Feed</h1>
-
+      <v-card>post</v-card>
     </div>
   </v-container>
 </template>

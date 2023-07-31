@@ -1,5 +1,6 @@
 <template>
     <v-container fill-height fluid class="background">
+
         <v-row align="center" justify="center">
             <h1 class="stroke">GAMEART</h1>
             <v-col align="center" justify="center" cols="12">

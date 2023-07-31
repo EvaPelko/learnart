@@ -10,7 +10,7 @@ import LandingPageView from '../views/LandingPageView.vue'
 import StudentFeedView from '../views/StudentFeedView.vue'
 import TeacherFeedView from '../views/TeacherFeedView.vue'
 import WelcomeView from '../views/WelcomeView.vue'
-
+import PostView from '../views/PostView.vue'
 
 Vue.use(VueRouter)
 
@@ -50,6 +50,11 @@ const routes = [
     path: '/teacherfeed',
     name: 'teacher-feed-view',
     component: TeacherFeedView
+  },
+  {
+    path: '/post',
+    name: 'post-view',
+    component: PostView
   }
 ]
 const router = new VueRouter({
