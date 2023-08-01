@@ -21,9 +21,9 @@
                                 " :rules="[rules.required, rules.min]" :type="showIcon ? 'text' : 'password'"
                                 outlined></v-text-field>
                             <v-select label="Select Level of Experience"
-                                :items="['Beginner', 'Intermediate', 'Advanced', 'Professional']"
-                                variant="outlined"></v-select>
-                            <v-checkbox label="I want to be a teacher"></v-checkbox>
+                                :items="['Beginner', 'Intermediate', 'Advanced', 'Professional']" variant="outlined"
+                                clearble></v-select>
+                            <v-checkbox label="I want to be a teacher" clearble></v-checkbox>
                         </v-form>
                     </v-card-text>
                     <v-card-actions class="card-actions">

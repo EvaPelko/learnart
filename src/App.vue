@@ -31,6 +31,8 @@
     <v-content>
 
 
+      <v-img src="./assets/Sprite-cat.png" align="right" width="200" class="ml-auto mb-15"></v-img>
+
 
       <v-footer color="#EBE2B4" absolute>
         <v-row justify="center" no-gutters>

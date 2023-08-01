@@ -13,15 +13,21 @@
             <v-row justify="center">
               <v-col cols="6">
                 <div class="my-2">
-                  <v-btn height="200px" width="450" to="/teacherfeed" x-large color="#99CBDB" class="stroke-mini">
-                    Learning Material
+                  <v-btn height="200px" width="450" to="/teacherfeed" size="x-large" style="font-size: 30px"
+                    color="#99CBDB" class="stroke">
+                    Learning
+                    <br>
+                    Material
                   </v-btn>
                 </div>
               </v-col>
               <v-col cols="6">
                 <div class="my-2">
-                  <v-btn height="200px" width="450" to="/studentfeed" x-large color="#99CBDB" dark>
-                    Student Feed
+                  <v-btn height="200px" width="450" to="/studentfeed" size="x-large" style="font-size: 30px"
+                    color="#99CBDB" class="stroke">
+                    Student
+
+                    Feed
                   </v-btn>
                 </div>
               </v-col>
