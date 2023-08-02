@@ -47,7 +47,7 @@
                 <div>
                   <br>
                   <v-card-title>How to draw a hand</v-card-title>
-                  <v-card-text class="text-left">
+                  <v-card-text class="text-left roboto-font text-h5">
                     Drawing hands can be challenging, but with practice and some tips, you can improve your hand-drawing
                     skills. Here's a step-by-step guide to help you get started:
 
