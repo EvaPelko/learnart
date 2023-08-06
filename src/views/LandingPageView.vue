@@ -40,7 +40,7 @@
               <div class="d-flex">
                 <div>
                   <v-avatar class="ma-4" size="320" rounded="0">
-                    <v-img src="../assets/hand-drawing.jpg"> </v-img>
+                    <v-img class="responsive-image" src="../assets/hand-drawing.jpg"> </v-img>
                   </v-avatar>
 
                 </div>

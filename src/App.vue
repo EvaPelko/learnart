@@ -1,28 +1,30 @@
 <template>
   <v-app>
-    <v-app-bar app height=90 color="#FFF7D0">
-      <div class="d-flex align-center">
+    <v-app-bar height=120 color="#FFF7D0">
+      <v-container>
 
-        <a href="/landing"><v-img alt="Gameart Logo" class="shrink mr-2" contain
-            src="https://www.nicepng.com/png/full/171-1710349_game-controller-pixel-game-controller.png"
-            transition="scale-transition" width="60" />
-        </a>
-        <v-app-bar-title class="stroke">GAMEART</v-app-bar-title>
-      </div>
-      <v-spacer></v-spacer>
-      <v-btn text to="/landing">Landing</v-btn>
-      <v-btn v-show="isAuthenticated" text to="/animal">New Animal</v-btn>
-      <v-btn v-show="false && isAuthenticated" text to="/profile">
-        Profile
-      </v-btn>
-      <v-btn v-show="!isAuthenticated" text to="/login">Login</v-btn>
-      <v-btn v-show="!isAuthenticated" text to="/registration">
-        Registration
-      </v-btn>
-      <v-btn v-show="isAuthenticated" @click="signOut" text>Logout</v-btn>
+        <div class="d-flex align-center">
 
-      <v-spacer></v-spacer>
+          <a href="/landing"><v-img alt="Gameart Logo" class="shrink mr-2" contain
+              src="https://www.nicepng.com/png/full/171-1710349_game-controller-pixel-game-controller.png"
+              transition="scale-transition" width="60" />
+          </a>
+          <v-app-bar-title class="stroke">GAMEART</v-app-bar-title>
+        </div>
+        <v-spacer></v-spacer>
+        <v-btn text to="/landing">Landing</v-btn>
+        <v-btn v-show="isAuthenticated" text to="/post">New Post</v-btn>
+        <v-btn v-show="false && isAuthenticated" text to="/profile">
+          Profile
+        </v-btn>
+        <v-btn v-show="!isAuthenticated" text to="/login">Login</v-btn>
+        <v-btn v-show="!isAuthenticated" text to="/registration">
+          Registration
+        </v-btn>
+        <v-btn v-show="isAuthenticated" @click="signOut" text>Logout</v-btn>
 
+        <v-spacer></v-spacer>
+      </v-container>
     </v-app-bar>
 
     <v-main>
