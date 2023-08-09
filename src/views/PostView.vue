@@ -4,10 +4,20 @@
     <h2>How to draw a hand</h2>
     <br>
     <div id="div-color">
-      <v-avatar class="ma-4" size="50">
-        <v-img src="../assets/User.jpg"> </v-img>
-      </v-avatar>
-      <p class="text-left mx-10">Jane Smith</p>
+      <v-col cols="12">
+        <v-row>
+          <v-col col="1">
+            <a href="/profile">
+              <v-avatar class="ma-4" size="50">
+                <v-img src="../assets/User.jpg"> </v-img>
+              </v-avatar>
+            </a>
+          </v-col>
+          <v-col col="1">
+            <p class="text-left mx-10">Jane Smith</p>
+          </v-col>
+        </v-row>
+      </v-col>
       <p class="text-left roboto-font mx-10">Drawing hands can be challenging, but with practice and some tips, you can
         improve your
         hand-drawing skills.

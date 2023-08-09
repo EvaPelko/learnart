@@ -64,3 +64,24 @@ h2 {
    max-width: 100%;
    height: auto;
  }
+
+ .shrink-button {
+   width: 450px;
+   max-width: 100%; /* Ensure the button doesn't exceed its parent container */
+   flex: 1;
+
+   /* Responsive behavior at different breakpoints */
+   @media only screen and (max-width: 500px) {
+  
+     width: 350px;
+     
+   }
+ }
+
+ .shrink-card {
+   @media only screen and (max-width: 500px) {
+  width: 200px;
+      font-size: 10px;
+      
+    }
+ }

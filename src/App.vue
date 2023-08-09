@@ -13,6 +13,11 @@
         </div>
         <v-spacer></v-spacer>
         <v-btn text to="/landing">Landing</v-btn>
+        <v-menu>
+          <v-btn text to="/teacherfeed">Teacher Feed</v-btn>
+        </v-menu>
+        <v-btn text to="/studentfeed">Student Feed</v-btn>
+
         <v-btn v-show="isAuthenticated" text to="/post">New Post</v-btn>
         <v-btn v-show="false && isAuthenticated" text to="/profile">
           Profile
