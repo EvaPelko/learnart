@@ -5,19 +5,26 @@
     <br>
     <div id="div-color">
       <v-col cols="12">
-        <v-row>
-          <v-col col="1">
-            <a href="/profile">
-              <v-avatar class="ma-4" size="50">
-                <v-img src="../assets/User.jpg"> </v-img>
-              </v-avatar>
-            </a>
-          </v-col>
-          <v-col col="1">
-            <p class="text-left mx-10">Jane Smith</p>
-          </v-col>
-        </v-row>
+
+
       </v-col>
+      <div class="d-flex flex-row mb-6 bg-surface-variant">
+        <v-sheet class="ma-2 pa-2 transparent-sheet"><a href="/profile">
+            <v-avatar class="ma-4" size="50">
+              <v-img src="../assets/User.jpg"></v-img>
+            </v-avatar>
+          </a></v-sheet>
+        <v-sheet class=" transparent-sheet">
+          <p class="text-left mt-10">Jane Smith</p>
+        </v-sheet>
+        <v-sheet class="transparent-sheet mt-10 ml-7">
+          <v-img src="../assets/check.svg" alt="Responsive Image" class="mx-auto" max-width="30px"></v-img>
+        </v-sheet>
+        <v-sheet class="ma-2 pa-2 transparent-sheet">
+          <p class="text-left mt-6" style="color: #216EE1">TEACHER</p>
+        </v-sheet>
+      </div>
+
       <p class="text-left roboto-font mx-10">Drawing hands can be challenging, but with practice and some tips, you can
         improve your
         hand-drawing skills.

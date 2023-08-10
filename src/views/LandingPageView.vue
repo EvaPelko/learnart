@@ -41,7 +41,8 @@
                 <div>
 
                   <v-responsive class="ma-4">
-                    <v-img src="../assets/hand-drawing.jpg" width="320"> </v-img>
+                    <v-img src="../assets/hand-drawing.jpg" alt="Responsive Image" class="mx-auto"
+                      :class="{ 'shrink-img': isSmallScreen }"></v-img>
                   </v-responsive>
 
                 </div>
@@ -52,7 +53,7 @@
                     Drawing hands can be challenging, but with practice and some tips, you can improve your hand-drawing
                     skills. Here's a step-by-step guide to help you get started:
 
-                    Study Hand Anatomy: Understanding the basic structure... <span style="color: #2A26FF">Read
+                    Study Hand Anatomy: Understanding the basic structure... <span style="color: #216EE1">Read
                       more</span>
                   </v-card-text>
                   <a href="/profile">
@@ -104,7 +105,24 @@ import HelloWorld from '../components/HelloWorld'
 
 export default {
   name: 'LandingPageView',
-
+  data() {
+    return {
+      imageUrl: 'path-to-your-image.jpg',
+      isSmallScreen: false,
+    };
+  },
+  methods: {
+    checkScreenSize() {
+      this.isSmallScreen = this.$vuetify.breakpoint.smAndDown;
+    },
+  },
+  mounted() {
+    this.checkScreenSize();
+    window.addEventListener('resize', this.checkScreenSize);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.checkScreenSize);
+  },
   components: {
 
   },

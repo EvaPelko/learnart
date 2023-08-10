@@ -11,6 +11,7 @@ import StudentFeedView from '../views/StudentFeedView.vue'
 import TeacherFeedView from '../views/TeacherFeedView.vue'
 import WelcomeView from '../views/WelcomeView.vue'
 import PostView from '../views/PostView.vue'
+import AboutView from '../views/AboutView.vue'
 
 Vue.use(VueRouter)
 
@@ -55,6 +56,11 @@ const routes = [
     path: '/post',
     name: 'post-view',
     component: PostView
+  },
+  {
+    path: '/about',
+    name: 'about-view',
+    component: AboutView
   }
 ]
 const router = new VueRouter({
