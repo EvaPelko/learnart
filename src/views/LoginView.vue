@@ -7,15 +7,15 @@
                 <v-card class="card-border rounded-0" width="600px" outlined color="#FFF7D0">
                     <v-card-title align="left">LOGIN</v-card-title>
                     <v-card-subtitle align="left">
-                        Dear user, please login
+                        Dear artist, please login
                     </v-card-subtitle>
                     <v-card-text class="card-text-border">
                         <v-form v-model="valid">
                             <v-text-field v-model="email" dense label="Email" clearble type="text"
                                 :rules="[rules.required, rules.email]" outlined></v-text-field>
                             <v-text-field v-model="password" dense label="Password" clearble :append-icon="showIcon ? 'mdi-eye' : 'mdi-eye-off'
-                                " :rules="[rules.required, rules.min]" :type="showIcon ? 'text' : 'password'"
-                                outlined></v-text-field>
+                                " @click:append="togglePasswordVisibility" :rules="[rules.required, rules.min]"
+                                :type="showIcon ? 'text' : 'password'" outlined></v-text-field>
                         </v-form>
                         <v-btn @click="openDialog" class="link-left" text x-small color="blue">
                             Forgot password?
@@ -121,6 +121,9 @@ export default {
         },
         openDialog() {
             this.passwordIssuesDialog = true;
+        },
+        togglePasswordVisibility() {
+            this.showIcon = !this.showIcon;
         },
     },
     created() { },

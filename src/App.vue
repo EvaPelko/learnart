@@ -71,9 +71,11 @@
 
       <v-footer color="#EBE2B4" absolute>
         <v-row justify="center" no-gutters>
-          <v-btn v-for="link in links" :key="link" color="#99CBDB" variant="text" class="mx-2">
-            {{ link }}
-          </v-btn>
+          <router-link v-for="link in links" :key="link" :to="getRoute(link)">
+            <v-btn color="#99CBDB" variant="text" class="mx-2">
+              {{ link }}
+            </v-btn>
+          </router-link>
           <v-col class="text-center mt-4" cols="12">
             {{ new Date().getFullYear() }} — <strong>GAMEART</strong>
           </v-col>
@@ -126,6 +128,11 @@ export default {
     closeDropdownStudent() {
       this.openDropdownStudent = false;
     },
+    getRoute(link) {
+      if (link === 'Home') return '/landing';
+      else if (link == 'About Us') return '/about';
+      else if (link === 'Contact Us') return '/contact';
+    }
   },
 
 };

@@ -4,11 +4,11 @@
     <h2>User profile</h2>
     <br>
     <div id="div-color">
-      <v-col cols="12">
 
-      </v-col>
-      <div class="d-flex flex-row mb-6 bg-surface-variant">
-        <v-sheet class="ma-2 pa-2 transparent-sheet"><a href="/profile">
+
+
+      <div class="d-flex flex-row bg-surface-variant">
+        <v-sheet class="ma-2  transparent-sheet"><a href="/profile">
             <v-avatar class="ma-4" size="50">
               <v-img src="../assets/User.jpg"></v-img>
             </v-avatar>

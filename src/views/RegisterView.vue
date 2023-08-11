@@ -7,7 +7,7 @@
                 <v-card class="card-border" width="600px" outlined color="#FFF7D0">
                     <v-card-title align="left">REGISTER</v-card-title>
                     <v-card-subtitle align="left">
-                        Dear user, please register
+                        Dear artist, please register
                     </v-card-subtitle>
                     <v-card-text>
                         <v-form v-model="valid">
@@ -18,12 +18,12 @@
                             <v-text-field v-model="email" dense label="Email" clearble type="text"
                                 :rules="[rules.required, rules.email]" outlined></v-text-field>
                             <v-text-field v-model="password" dense label="Password" clearble :append-icon="showIcon ? 'mdi-eye' : 'mdi-eye-off'
-                                " :rules="[rules.required, rules.min]" :type="showIcon ? 'text' : 'password'"
-                                outlined></v-text-field>
+                                " @click:append="togglePasswordVisibility" :rules="[rules.required, rules.min]"
+                                :type="showIcon ? 'text' : 'password'" outlined></v-text-field>
                             <v-select label="Select Level of Experience"
-                                :items="['Beginner', 'Intermediate', 'Advanced', 'Professional']" variant="outlined"
-                                clearble></v-select>
-                            <v-checkbox label="I want to be a teacher" clearble></v-checkbox>
+                                :items="['Beginner', 'Intermediate', 'Advanced', 'Professional']"
+                                variant="outlined"></v-select>
+                            <v-checkbox label="I want to be a teacher"></v-checkbox>
                         </v-form>
                     </v-card-text>
                     <v-card-actions class="card-actions">
@@ -116,6 +116,9 @@ export default {
                     const errorMessage = error.message;
                     console.log(error, errorCode, errorMessage);
                 });
+        },
+        togglePasswordVisibility() {
+            this.showIcon = !this.showIcon;
         },
     },
 };
