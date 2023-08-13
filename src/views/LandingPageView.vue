@@ -41,7 +41,7 @@
                 <div>
 
                   <v-responsive class="ma-4">
-                    <v-img src="../assets/hand-drawing.jpg" alt="Responsive Image" class="mx-auto"
+                    <v-img src="../assets/hand-drawing.jpg" alt="Responsive Image" class="mx-auto" max-width="320px"
                       :class="{ 'shrink-img': isSmallScreen }"></v-img>
                   </v-responsive>
 

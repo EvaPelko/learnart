@@ -11,19 +11,33 @@
                     </v-card-subtitle>
                     <v-card-text>
                         <v-form v-model="valid">
-                            <v-text-field v-model="firstName" dense label="Name" clearble type="text"
-                                outlined></v-text-field>
-                            <v-text-field v-model="lastName" dense label="Last Name" clearble type="text"
-                                outlined></v-text-field>
+                            <v-text-field v-model="firstName" dense label="Name" clearble type="text" outlined
+                                :rules="[rules.required]"></v-text-field>
+                            <v-text-field v-model="lastName" dense label="Last Name" clearble type="text" outlined
+                                :rules="[rules.required]"></v-text-field>
                             <v-text-field v-model="email" dense label="Email" clearble type="text"
                                 :rules="[rules.required, rules.email]" outlined></v-text-field>
                             <v-text-field v-model="password" dense label="Password" clearble :append-icon="showIcon ? 'mdi-eye' : 'mdi-eye-off'
                                 " @click:append="togglePasswordVisibility" :rules="[rules.required, rules.min]"
                                 :type="showIcon ? 'text' : 'password'" outlined></v-text-field>
                             <v-select label="Select Level of Experience"
-                                :items="['Beginner', 'Intermediate', 'Advanced', 'Professional']"
-                                variant="outlined"></v-select>
-                            <v-checkbox label="I want to be a teacher"></v-checkbox>
+                                :items="['Beginner', 'Intermediate', 'Advanced', 'Professional']" variant="outlined"
+                                :rules="[rules.required]"></v-select>
+                            <v-checkbox v-model="isTeacher" label="I want to be a teacher"></v-checkbox>
+                            <v-dialog v-model="uploadDialog" max-width="500">
+                                <v-card>
+                                    <v-card-title>Upload your drawings as evaluation</v-card-title>
+                                    <v-card-text>
+                                        <!-- Your content here, such as image upload components -->
+                                        <v-file-input label="Upload Images" :rules="[rules.required]"></v-file-input>
+                                        <v-file-input label="Upload Images"></v-file-input>
+                                    </v-card-text>
+                                    <v-card-actions>
+                                        <v-btn @click="uploadDialog = false">Cancel</v-btn>
+                                        <v-btn @click="uploadPictures">Upload</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
                         </v-form>
                     </v-card-text>
                     <v-card-actions class="card-actions">
@@ -65,6 +79,9 @@ export default {
             email: null,
             password: null,
             showIcon: false,
+            isTeacher: false,
+            uploadDialog: false,
+
             rules: {
                 required: (value) => !!value || "Required.",
                 min: (v) => v?.length >= 6 || "Min 6 characters",
@@ -75,6 +92,17 @@ export default {
             },
         };
     },
+    watch: {
+        isTeacher(newValue) {
+            if (newValue) {
+                this.uploadDialog = true;
+            } else {
+                this.uploadDialog = false;
+            }
+        }
+    },
+
+
     created() { },
     mounted() { },
     destroyed() { },
@@ -119,6 +147,14 @@ export default {
         },
         togglePasswordVisibility() {
             this.showIcon = !this.showIcon;
+        },
+        uploadPictures() {
+            // Handle the upload logic here
+            // You can use this method to process the uploaded pictures
+            // If the upload is canceled, set isTeacher to false
+            this.isTeacher = false;
+            // and close the dialog afterward
+            this.uploadDialog = false;
         },
     },
 };

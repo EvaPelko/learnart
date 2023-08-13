@@ -4,10 +4,6 @@
     <h2>How to draw a hand</h2>
     <br>
     <div id="div-color">
-      <v-col cols="12">
-
-
-      </v-col>
       <div class="d-flex flex-row bg-surface-variant">
         <v-sheet class="ma-2 pa-2 transparent-sheet"><a href="/profile">
             <v-avatar class="ma-4" size="50">
@@ -70,6 +66,41 @@
         improve your hand-drawing skills.
       </p>
     </div>
+    <div class="icon-container">
+      <v-img src="../assets/like.svg" alt="Like button" class="mx-2 like-icon" :class="{ liked: isLiked }"
+        max-width="50px" onclick="toggleLike"></v-img>
+      <div class="icons-right">
+        <v-img src="../assets/report.svg" alt="Report button" class="mx-auto" max-width="40px"></v-img>
+        <v-img src="../assets/save.svg" alt="Save button" class="mx-auto" max-width="28px"></v-img>
+      </div>
+    </div>
+    <div id="div-color">
+      <p>Comments</p>
+      <div class="comment-container">
+        <v-text-field v-model="commentText" label="Write a comment..." outlined dense class="comment-input mx-15"
+          @keyup.enter="postComment"></v-text-field>
+        <v-spacer></v-spacer>
+        <v-btn @click="postComment" color="#99CBDB" dark class="mx-15">Post</v-btn>
+      </div>
+    </div>
+    <div style="background-color: #EBE2B4;">
+      <div class="d-flex flex-row bg-surface-variant">
+        <v-sheet class=" transparent-sheet"><a href="/profile">
+            <v-avatar class="ma-4" size="50">
+              <v-img src="../assets/User.jpg"></v-img>
+            </v-avatar>
+          </a></v-sheet>
+        <v-sheet class=" transparent-sheet">
+          <p class="text-left mt-6">Holly543</p>
+        </v-sheet>
+
+      </div>
+      <p class="text-left roboto-font mx-15">Wow, thank you so much for your guidance on learning to draw hands! Your
+        advice really helped me improve my
+        skills. I never thought I could capture the intricacies of hands until I followed your tips. Your encouragement to
+        observe and practice different hand positions made all the difference. Now, I feel more confident and excited to
+        tackle other challenging subjects in my artwork. You're an amazing art teacher!</p>
+    </div>
   </v-container>
 </template>
 
@@ -78,9 +109,29 @@ import HelloWorld from '../components/HelloWorld'
 
 export default {
   name: 'PostView',
-
-  components: {
-
+  data() {
+    return {
+      commentText: '',
+      isLiked: false,
+    };
   },
-}
+  methods: {
+    postComment() {
+      if (this.commentText.trim() !== '') {
+        // Perform the logic to post the comment here
+        console.log('Posting comment:', this.commentText);
+
+        // Clear the input field after posting
+        this.commentText = '';
+      }
+    },
+    toggleLike() {
+      this.isLiked = !this.isLiked;
+    }
+  },
+  components: {
+    // Your components here
+  },
+};
+
 </script>

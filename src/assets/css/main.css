@@ -17,7 +17,7 @@
 p {
    color: #3C2525;
    text-align: center;
-   letter-spacing: -4px;
+   letter-spacing: -3px;
 }
 
 h1 {
@@ -58,6 +58,7 @@ h2 {
 .roboto-font {
    font-family: 'Roboto', sans-serif;
    letter-spacing: 0px;
+   font-size: 16px;
 }
 
 .responsive-image {
@@ -80,14 +81,50 @@ h2 {
 
  .shrink-img {
    width: 320px;
-   max-width: 100%; 
+   max-width: 100%;
    flex: 1;
-   @media only screen and (max-width: 500px) {
-  width: 100px;}
-}
-
+ }
+ 
+ @media only screen and (max-width: 500px) {
+   .shrink-img {
+     width: 100px;
+   }
+ }
 .transparent-sheet {
    background-color: rgba(0, 0, 0, 0) !important;
    border: none !important;
    box-shadow: none !important;
  }
+
+ .pixel-game-button {
+   border: none;          /* Remove the default border */
+   cursor: pointer;       /* Show pointer cursor on hover */
+   text-transform: uppercase; /* Optional: Convert text to uppercase */
+   transition: background-color 0.3s, color 0.3s; /* Add transitions for smooth hover effect */
+ 
+   /* Add any other styling you need */
+ }
+ 
+ .pixel-game-button:hover {
+   background-color: #ff5733; /* Change color on hover */
+   color: #000;               /* Change text color on hover */
+ }
+
+
+ .comment-input {
+   flex: 1;
+   max-width: 90%;
+ }
+
+ .icon-container {
+  background-color: #EBE2B4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.icons-right {
+  display: flex;
+  gap: 40px;
+}

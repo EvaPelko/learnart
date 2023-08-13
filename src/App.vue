@@ -3,7 +3,7 @@
     <v-app-bar height=120 color="#FFF7D0">
       <v-container>
 
-        <div class="d-flex align-center">
+        <div class="d-flex justify-start align-center">
 
           <a href="/landing"><v-img alt="Gameart Logo" class="shrink mr-2" contain
               src="https://www.nicepng.com/png/full/171-1710349_game-controller-pixel-game-controller.png"
