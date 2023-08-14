@@ -19,7 +19,7 @@
         </v-col>
 
         <v-col cols="4">
-          <v-card class="font-xs shrink-card ma-10" height="100">So, you
+          <v-card class="font-xs shrink-card ma-10" max-height="100" style="padding: 10px">So, you
             <br>
             want to learn art?
           </v-card>

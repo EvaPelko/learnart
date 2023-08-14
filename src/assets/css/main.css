@@ -128,3 +128,18 @@ h2 {
   display: flex;
   gap: 40px;
 }
+
+.like-icon {
+  cursor: pointer;
+  transition: color 0.3s ease; /* Add smooth color transition */
+}
+
+.liked {
+  fill: red;
+}
+
+.post-input {
+  flex: 1;
+  max-width: 90%;
+  height: 70%;
+}

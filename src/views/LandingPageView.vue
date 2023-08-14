@@ -76,7 +76,7 @@
                   </v-col>
                   <v-col md="6" xs="2">
                     <div class="my-2">
-                      <v-card class="font-xs shrink-card">
+                      <v-card class="font-xs shrink-card" style="padding: 10px">
                         Join our vibrant community of like-minded individuals who share your passion for art!
                         <br><br>
                         Connect with fellow learners, engage in lively discussions, and embark on collaborative projects

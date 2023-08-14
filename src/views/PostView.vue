@@ -65,16 +65,35 @@
         Remember, drawing is an art, and there's no single "right" way to do it. Develop your style and keep practicing to
         improve your hand-drawing skills.
       </p>
+      <br>
     </div>
     <div class="icon-container">
-      <v-img src="../assets/like.svg" alt="Like button" class="mx-2 like-icon" :class="{ liked: isLiked }"
-        max-width="50px" onclick="toggleLike"></v-img>
+      <v-img src="../assets/like.svg" alt="Like Icon" class="mx-2 like-icon" :class="{ liked: isLiked }" max-width="50px"
+        @click="toggleLike"></v-img>
       <div class="icons-right">
-        <v-img src="../assets/report.svg" alt="Report button" class="mx-auto" max-width="40px"></v-img>
-        <v-img src="../assets/save.svg" alt="Save button" class="mx-auto" max-width="28px"></v-img>
+        <v-img src="../assets/report.svg" alt="Report button" class="mx-auto" max-width="40px"
+          @click="showReportMessage"></v-img>
+        <v-dialog v-model="reportDialog" max-width="300">
+          <v-card>
+            <v-card-title class="headline">Post Reported</v-card-title>
+            <v-card-actions>
+              <v-btn color="primary" text @click="reportDialog = false">Close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-img src="../assets/save.svg" alt="Save button" class="mx-auto" max-width="28px"
+          @click="showSaveMessage"></v-img>
+        <v-dialog v-model="saveDialog" max-width="300">
+          <v-card>
+            <v-card-title class="headline">Post Saved</v-card-title>
+            <v-card-actions>
+              <v-btn color="primary" text @click="saveDialog = false">Close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </div>
     </div>
-    <div id="div-color">
+    <div id="div-color" style="padding: 10px">
       <p>Comments</p>
       <div class="comment-container">
         <v-text-field v-model="commentText" label="Write a comment..." outlined dense class="comment-input mx-15"
@@ -83,7 +102,7 @@
         <v-btn @click="postComment" color="#99CBDB" dark class="mx-15">Post</v-btn>
       </div>
     </div>
-    <div style="background-color: #EBE2B4;">
+    <div style="background-color: #EBE2B4; padding: 10px">
       <div class="d-flex flex-row bg-surface-variant">
         <v-sheet class=" transparent-sheet"><a href="/profile">
             <v-avatar class="ma-4" size="50">
@@ -113,6 +132,8 @@ export default {
     return {
       commentText: '',
       isLiked: false,
+      saveDialog: false,
+      reportDialog: false,
     };
   },
   methods: {
@@ -127,7 +148,19 @@ export default {
     },
     toggleLike() {
       this.isLiked = !this.isLiked;
-    }
+    },
+    showSaveMessage() {
+      this.saveDialog = true;
+      setTimeout(() => {
+        this.saveDialog = false;
+      }, 1000); // Close the dialog after 2 seconds
+    },
+    showReportMessage() {
+      this.reportDialog = true;
+      setTimeout(() => {
+        this.reportDialog = false;
+      }, 1000); // Close the dialog after 2 seconds
+    },
   },
   components: {
     // Your components here

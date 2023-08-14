@@ -31,6 +31,7 @@
         education. It was at this esteemed institution that I honed my artistic skills and developed a deep appreciation
         for various artistic disciplines.
       </p>
+      <br>
     </div>
   </v-container>
 </template>
