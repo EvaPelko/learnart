@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <br>
-    <h2>How to draw a hand</h2>
+    <h2 class="stroke">How to draw a hand</h2>
     <br>
     <div id="div-color">
       <div class="d-flex flex-row bg-surface-variant">
@@ -65,6 +65,11 @@
         Remember, drawing is an art, and there's no single "right" way to do it. Develop your style and keep practicing to
         improve your hand-drawing skills.
       </p>
+      <v-img src="../assets/hand-drawing.jpg" alt="Responsive Image" class="mx-auto" max-width="320px"
+        @click="showFullSize"></v-img>
+      <v-dialog v-model="dialog" max-width="800px">
+        <v-img src="../assets/hand-drawing.jpg" contain></v-img>
+      </v-dialog>
       <br>
     </div>
     <div class="icon-container">
@@ -97,7 +102,7 @@
       <p>Comments</p>
       <div class="comment-container">
         <v-text-field v-model="commentText" label="Write a comment..." outlined dense class="comment-input mx-15"
-          @keyup.enter="postComment"></v-text-field>
+          :rules="rules" counter @keyup.enter="postComment"></v-text-field>
         <v-spacer></v-spacer>
         <v-btn @click="postComment" color="#99CBDB" dark class="mx-15">Post</v-btn>
       </div>
@@ -134,6 +139,9 @@ export default {
       isLiked: false,
       saveDialog: false,
       reportDialog: false,
+      imageUrl: '../assets/hand-drawing.jpg',
+      dialog: false,
+      rules: [v => v.length <= 25 || 'Max 700 characters'],
     };
   },
   methods: {
@@ -153,13 +161,16 @@ export default {
       this.saveDialog = true;
       setTimeout(() => {
         this.saveDialog = false;
-      }, 1000); // Close the dialog after 2 seconds
+      }, 1000);
     },
     showReportMessage() {
       this.reportDialog = true;
       setTimeout(() => {
         this.reportDialog = false;
-      }, 1000); // Close the dialog after 2 seconds
+      }, 1000);
+    },
+    showFullSize() {
+      this.dialog = true;
     },
   },
   components: {
