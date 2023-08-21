@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-spacer></v-spacer>
-    <div>student feed</div>
+    <h1>Student Feed</h1>
     <PostCard></PostCard>
   </v-container>
 </template>

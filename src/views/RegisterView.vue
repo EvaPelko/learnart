@@ -20,7 +20,7 @@
                             <v-text-field v-model="password" dense label="Password" clearble :append-icon="showIcon ? 'mdi-eye' : 'mdi-eye-off'
                                 " @click:append="togglePasswordVisibility" :rules="[rules.required, rules.min]"
                                 :type="showIcon ? 'text' : 'password'" outlined></v-text-field>
-                            <v-select label="Select Level of Experience"
+                            <v-select label="Select Level of Experience" v-model="experience"
                                 :items="['Beginner', 'Intermediate', 'Advanced', 'Professional']" variant="outlined"
                                 :rules="[rules.required]"></v-select>
                             <v-checkbox v-model="isTeacher" label="I want to be a teacher"></v-checkbox>
@@ -44,7 +44,7 @@
                         <v-btn class="btn-right-margin" @click="clearFormData" color="red darken-3" outlined>
                             CLEAR
                         </v-btn>
-                        <v-btn :disabled="isButtonDisabled" outlined @click="registerUser">
+                        <v-btn :disabled="isButtonDisabled" outlined type="submit" @click="registerUser">
                             OK
                         </v-btn>
                     </v-card-actions>
@@ -55,13 +55,8 @@
 </template>
 
 <script>
-import {
-    doc,
-    auth,
-    db,
-    setDoc,
-    createUserWithEmailAndPassword,
-} from "../../firebase.js";
+
+import { auth, db, firebase, createUserWithEmailAndPassword } from "/Users/Korisnik/projects/web apps/vue/learnart/firebase";
 export default {
     name: "RegistrationView",
     components: {},
@@ -74,10 +69,11 @@ export default {
         return {
             isButtonDisabled: false,
             valid: true,
-            firstName: null,
-            lastName: null,
-            email: null,
-            password: null,
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            experience: '',
             showIcon: false,
             isTeacher: false,
             uploadDialog: false,
@@ -112,6 +108,8 @@ export default {
             this.lastName = null;
             this.email = null;
             this.password = null;
+            this.experience = null;
+            this.isTeacher = null;
         },
         postActionMoveToView() {
             this.$router.push({ path: "/animals" });
@@ -125,12 +123,13 @@ export default {
             });
         },
         registerUser() {
-            debugger;
+            console.log({ email: this.email })
+
             const email = this.email;
             const password = this.password;
+
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    debugger;
                     // Signed in
                     const user = userCredential.user;
                     const firstName = this.firstName;
@@ -139,11 +138,11 @@ export default {
                     this.postActionMoveToView();
                 })
                 .catch((error) => {
-                    debugger;
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log(error, errorCode, errorMessage);
                 });
+
         },
         togglePasswordVisibility() {
             this.showIcon = !this.showIcon;
