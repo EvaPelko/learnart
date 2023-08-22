@@ -44,7 +44,7 @@
                         <v-btn class="btn-right-margin" @click="clearFormData" color="red darken-3" outlined>
                             CLEAR
                         </v-btn>
-                        <v-btn :disabled="isButtonDisabled" outlined type="submit" @click="registerUser">
+                        <v-btn :disabled="isButtonDisabled" outlined type="button" @click="registerUser">
                             OK
                         </v-btn>
                     </v-card-actions>
@@ -136,8 +136,10 @@ export default {
                     const lastName = this.lastName;
                     this.saveAdditionalData(user, email, firstName, lastName);
                     this.postActionMoveToView();
+                    alert('Account successfully made! Welcome ' + this.firstName);
                 })
                 .catch((error) => {
+                    alert('Error, check log in information.')
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log(error, errorCode, errorMessage);

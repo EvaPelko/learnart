@@ -53,11 +53,9 @@
 </template>
 
 <script>
-import {
-    auth,
-    sendPasswordResetEmail,
-    signInWithEmailAndPassword,
-} from "../../firebase.js";
+import { auth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+
+
 export default {
     name: "LoginView",
     components: {},
@@ -93,14 +91,17 @@ export default {
         login() {
             let email = this.email;
             let password = this.password;
+
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    this.$router.push("/landing");
+                    this.$router.replace("/landing");
                     const user = userCredential.user;
+                    alert('You have logged in.');
                 })
                 .catch((error) => {
                     alert(error.message);
                 });
+
         },
         resetPassword(email) {
             sendPasswordResetEmail(auth, email)

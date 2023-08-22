@@ -3,15 +3,23 @@
     <v-row align="center" justify="center">
       <h1 class="stroke">New Post</h1>
     </v-row>
-    <v-row align="center" justify="center">
-      <div id="div-color" max-width="800px" style="padding: 20px">
-        <v-text-field v-model="titleText" label="Write a title" outlined dense class="post-input"
-          @keyup.enter="postTitle"></v-text-field>
-        <v-text-field v-model="postText" label="Write text" outlined dense auto-grow name="input-7-1" variant="filled"
-          :rules="rules" :model-value="value" counter @keyup.enter="postText"></v-text-field>
 
-        <v-btn @click="postTitle" color="#99CBDB" dark>Post</v-btn>
-      </div>
+    <v-row align="center" justify="center">
+      <v-card>
+        <div id="div-color" max-width="800px" style="padding: 20px">
+          <v-card-text>
+            <v-form v-model="valid">
+              <v-text-field v-model="newTitleText" label="Write a title" outlined dense class="post-input"
+                @keyup.enter="postTitle"></v-text-field>
+              <v-text-field v-model="newPostText" label="Write text" outlined dense auto-grow name="input-7-1"
+                variant="filled" :rules="rules" :model-value="value" counter @keyup.enter="postText"></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions class="card-actions">
+            <v-btn type="button" @click="post" color="#99CBDB" dark>Post</v-btn>
+          </v-card-actions>
+        </div>
+      </v-card>
     </v-row>
 
 
@@ -19,12 +27,15 @@
 </template>
 
 <script>
+import { auth, db, firebase, createUserWithEmailAndPassword } from "/Users/Korisnik/projects/web apps/vue/learnart/firebase";
 export default {
   data() {
     return {
       imageUrl: 'path-to-your-image.jpg',
       isSmallScreen: false,
-      postText: '',
+      newTitleText: '',
+      newPostText: '',
+      valid: true,
       rules: [v => v.length <= 25 || 'Max 5000 characters'],
 
     };
@@ -33,6 +44,24 @@ export default {
     checkScreenSize() {
       this.isSmallScreen = this.$vuetify.breakpoint.smAndDown; // Adjust breakpoint as needed
     },
+    post() {
+      const titleText = this.newTitleText;
+      const postText = this.newPostText;
+      alert('hej');
+      db.collection("posts").add({
+        title: titleText,
+        text: postText,
+        posted_at: Date.now(),
+      })
+        .then(() => {
+          console.log("Spremljen dokument ", doc);
+        }
+        )
+        .catch((e) => {
+          console.error(e);
+        }
+        );
+    }
   },
   mounted() {
     this.checkScreenSize();
@@ -46,5 +75,6 @@ export default {
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
   },
+
 };
 </script>
