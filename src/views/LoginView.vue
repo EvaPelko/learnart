@@ -53,7 +53,8 @@
 </template>
 
 <script>
-import { auth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, firebase } from "firebase/auth";
 
 
 export default {
@@ -89,16 +90,22 @@ export default {
     },
     methods: {
         login() {
+            console.log({ email: this.email })
+
             let email = this.email;
             let password = this.password;
-
+            const auth = getAuth();
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    this.$router.replace("/landing");
+                    // Signed in 
                     const user = userCredential.user;
                     alert('You have logged in.');
+                    this.$router.replace("/landing");
+                    // ...
                 })
                 .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
                     alert(error.message);
                 });
 
@@ -135,3 +142,6 @@ export default {
 </script>
 
 <style></style>
+
+
+
