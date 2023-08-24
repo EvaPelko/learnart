@@ -1,5 +1,6 @@
 <template>
   <v-app>
+
     <v-app-bar height=120 color="#FFF7D0">
       <v-container>
         <v-row>
@@ -54,15 +55,15 @@
             </v-menu>
 
 
-            <v-btn v-show="isAuthenticated" text to="/post">New Post</v-btn>
-            <v-btn v-show="false && isAuthenticated" text to="/profile">
+            <v-btn v-if="store.currentUser" text to="/newpost">New Post</v-btn>
+            <v-btn v-if="store.currentUser" text to="/profile">
               Profile
             </v-btn>
-            <v-btn v-show="!isAuthenticated" text to="/login">Login</v-btn>
-            <v-btn v-show="!isAuthenticated" text to="/registration">
+            <v-btn v-if="!store.currentUser" text to="/login">Login</v-btn>
+            <v-btn v-if="!store.currentUser" text to="/registration">
               Registration
             </v-btn>
-            <v-btn v-show="isAuthenticated" @click="signOut" text>Logout</v-btn>
+            <v-btn v-if="store.currentUser" @click="logOut" text>Logout</v-btn>
 
             <v-spacer></v-spacer>
           </v-col>
@@ -110,8 +111,10 @@
 </style>
 
 <script>
-import HeaderComponent from "./components/HeaderComponent.vue";
-import FooterComponent from "./components/FooterComponent.vue";
+import store from '../src/store';
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+
+
 export default {
   name: 'App',
   data() {
@@ -134,7 +137,11 @@ export default {
         'About Us',
         'Contact Us',
       ],
+      store,
     };
+  },
+  created() {
+    this.isLogged();
   },
   methods: {
     closeDropdownTeacher() {
@@ -147,6 +154,31 @@ export default {
       if (link === 'Home') return '/landing';
       else if (link == 'About Us') return '/about';
       else if (link === 'Contact Us') return '/contact';
+    },
+    isLogged() {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/auth.user
+          const uid = user.uid;
+          console.log('Logged in user');
+          store.currentUser = user.email;
+        } else {
+          // User is signed out
+          console.log('Logged out user');
+          store.currentUser = null;
+        }
+      });
+    },
+    logOut() {
+      const auth = getAuth();
+      signOut(auth).then(() => {
+        alert('Logged out.');
+        this.$router.push("/login");
+      }).catch((error) => {
+        alert(error);
+      });
     }
   },
 

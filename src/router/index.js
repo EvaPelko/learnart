@@ -13,6 +13,7 @@ import WelcomeView from '../views/WelcomeView.vue'
 import PostView from '../views/PostView.vue'
 import NewPostView from '../views/NewPostView.vue'
 import AboutView from '../views/AboutView.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -62,6 +63,7 @@ const routes = [
     path: '/newpost',
     name: 'newpost-view',
     component: NewPostView
+  
   },
   {
     path: '/about',
@@ -74,5 +76,7 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+
 
 export default router

@@ -56,7 +56,7 @@
 
 <script>
 
-import { auth, db, firebase, createUserWithEmailAndPassword } from "../firebase";
+import { auth, db, firebase, createUserWithEmailAndPassword } from "@/firebase";
 export default {
     name: "RegistrationView",
     components: {},

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { auth, db, firebase, createUserWithEmailAndPassword } from "/Users/Korisnik/projects/web apps/vue/learnart/firebase";
+import { auth, db, firebase, createUserWithEmailAndPassword } from "../firebase";
 export default {
   data() {
     return {
