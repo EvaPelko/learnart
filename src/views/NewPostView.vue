@@ -27,7 +27,9 @@
 </template>
 
 <script>
-import { auth, db, firebase, createUserWithEmailAndPassword } from "../firebase";
+import store from '../store';
+import { auth, db, firebase } from "../firebase";
+import { doc, setDoc, addDoc, collection } from "firebase/firestore";
 export default {
   data() {
     return {
@@ -36,6 +38,7 @@ export default {
       newTitleText: '',
       newPostText: '',
       valid: true,
+      store,
       rules: [v => v.length <= 25 || 'Max 5000 characters'],
 
     };
@@ -47,20 +50,25 @@ export default {
     post() {
       const titleText = this.newTitleText;
       const postText = this.newPostText;
-      alert('hej');
-      db.collection("posts").add({
+
+      const docRef = addDoc(collection(db, "posts"), {
         title: titleText,
         text: postText,
         posted_at: Date.now(),
-      })
-        .then(() => {
-          console.log("Spremljen dokument ", doc);
-        }
-        )
+        email: store.currentUser,
+      }).then(() => {
+        console.log("Spremljen dokument ", doc);
+        alert('Spremljen dokument');
+        this.newTitleText = "";
+        this.newPostText = "";
+      }
+      )
         .catch((e) => {
           console.error(e);
+          alert(e);
         }
         );
+
     }
   },
   mounted() {
