@@ -14,6 +14,10 @@
               <v-text-field v-model="newPostText" label="Write text" outlined dense auto-grow name="input-7-1"
                 variant="filled" :rules="rules" :model-value="value" counter @keyup.enter="postText"></v-text-field>
             </v-form>
+
+            <croppa :width="400" :height="400" v-model="imageReference"></croppa>
+
+
           </v-card-text>
           <v-card-actions class="card-actions">
             <v-btn type="button" @click="post" color="#99CBDB" dark>Post</v-btn>
@@ -37,6 +41,7 @@ export default {
       isSmallScreen: false,
       newTitleText: '',
       newPostText: '',
+      imageReference: null,
       valid: true,
       store,
       rules: [v => v.length <= 25 || 'Max 5000 characters'],
@@ -48,6 +53,12 @@ export default {
       this.isSmallScreen = this.$vuetify.breakpoint.smAndDown; // Adjust breakpoint as needed
     },
     post() {
+      this.imageReference.generateBlob((blobData) => {
+        console.log(blobData);
+
+        let imageName = store.currentUser + "_" + Date.now() + ".png";
+        console.log(imageName);
+      });
       const titleText = this.newTitleText;
       const postText = this.newPostText;
 
