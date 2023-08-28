@@ -22,13 +22,19 @@ export default {
   methods: {
     async getPosts() {
       alert('Dohvaćam');
-      //let cards = [];
-      //... API/Firebase -> sve kartice -> cards
+      let cards = [];
       const db = getFirestore();
       const querySnapshot = await getDocs(collection(db, "posts"));
       querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
+        const data = doc.data();
+        let card = {
+          id: doc.id,
+          time: data.posted_at,
+          email: data.email,
+          title: data.title,
+          text: data.text,
+        }
       });
     },
   },
