@@ -34,6 +34,9 @@
 import store from '../store';
 import { auth, db, firebase } from "../firebase";
 import { doc, setDoc, addDoc, collection } from "firebase/firestore";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+
+
 export default {
   data() {
     return {
@@ -56,8 +59,17 @@ export default {
       this.imageReference.generateBlob((blobData) => {
         console.log(blobData);
 
-        let imageName = store.currentUser + "_" + Date.now() + ".png";
+        let imageName = 'posts/' + store.currentUser + "/" + Date.now() + ".png";
         console.log(imageName);
+
+        const storage = getStorage();
+        const storageRef = ref(storage, imageName);
+        uploadBytes(storageRef, blobData).then((snapshot) => {
+          alert('Uploaded a blob or file!');
+        }).catch(e => {
+          alert(e);
+        });
+
       });
       const titleText = this.newTitleText;
       const postText = this.newPostText;
