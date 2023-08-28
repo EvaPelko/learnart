@@ -39,6 +39,7 @@ export default {
             isSmallScreen: false,
         };
     },
+    props: ["info"],
     methods: {
         checkScreenSize() {
             this.isSmallScreen = this.$vuetify.breakpoint.smAndDown;
