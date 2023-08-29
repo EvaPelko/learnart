@@ -23,12 +23,17 @@
                             <v-select label="Select Level of Experience" v-model="experience"
                                 :items="['Beginner', 'Intermediate', 'Advanced', 'Professional']" variant="outlined"
                                 :rules="[rules.required]"></v-select>
-                            <v-checkbox v-model="isTeacher" label="I want to be a teacher"></v-checkbox>
-                            <v-dialog v-model="uploadDialog" max-width="500">
+                            <div class="form-group">
+                                <label for="profileType">Are you a teacher or a student? </label>
+                                <select v-model="chosenProfileType" id="tipProfila" class="form-control form-control-lg">
+                                    <option v-for="k in profileType" :key="k">{{ k }}</option>
+                                </select>
+                            </div>
+                            <!--  <v-dialog v-model="uploadDialog" max-width="500">
                                 <v-card>
                                     <v-card-title>Upload your drawings as evaluation</v-card-title>
                                     <v-card-text>
-                                        <!-- Your content here, such as image upload components -->
+                                        
                                         <v-file-input label="Upload Images" :rules="[rules.required]"></v-file-input>
                                         <v-file-input label="Upload Images"></v-file-input>
                                     </v-card-text>
@@ -37,7 +42,7 @@
                                         <v-btn @click="uploadPictures">Upload</v-btn>
                                     </v-card-actions>
                                 </v-card>
-                            </v-dialog>
+                            </v-dialog> -->
                         </v-form>
                     </v-card-text>
                     <v-card-actions class="card-actions">
@@ -56,7 +61,7 @@
 
 <script>
 
-import { auth, db, firebase, createUserWithEmailAndPassword } from "@/firebase";
+import { auth, db, firebase, createUserWithEmailAndPassword, setDoc } from "../firebase";
 export default {
     name: "RegistrationView",
     components: {},
@@ -77,6 +82,8 @@ export default {
             showIcon: false,
             isTeacher: false,
             uploadDialog: false,
+            profileType: ["Teacher",
+                "Student"],
 
             rules: {
                 required: (value) => !!value || "Required.",
@@ -110,9 +117,7 @@ export default {
             this.password = null;
             this.experience = null;
             this.isTeacher = null;
-        },
-        postActionMoveToView() {
-            this.$router.push({ path: "/animals" });
+            this.profileType = null;
         },
         async saveAdditionalData(user, email, firstName, lastName) {
             await setDoc(doc(db, "users", email), {
@@ -134,15 +139,15 @@ export default {
                     const user = userCredential.user;
                     const firstName = this.firstName;
                     const lastName = this.lastName;
-                    this.saveAdditionalData(user, email, firstName, lastName);
-                    this.postActionMoveToView();
+                    let id = this.email;
+                    const profileType = this.chosenProfileType;
+
+
                     alert('Account successfully made! Welcome ' + this.firstName);
                 })
-                .catch((error) => {
-                    alert('Error, check log in information.')
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.log(error, errorCode, errorMessage);
+                .catch(error => {
+                    console.error(error);
+                    this.errorMessage = error.message;
                 });
 
         },
