@@ -39,6 +39,10 @@ export default {
         };
         cards.push(card);
       });
+
+      // Sort the cards array by time property in descending order
+      cards.sort((a, b) => b.time - a.time);
+
       this.cards = cards;
     },
   },

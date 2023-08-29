@@ -4,7 +4,7 @@
             <div>
 
                 <v-responsive class="ma-4">
-                    <v-img src=info.url alt="Responsive Image" class="mx-auto" max-width="320px"
+                    <v-img :src="info.url" alt="Responsive Image" class="mx-auto" max-width="320px"
                         :class="{ 'shrink-img': isSmallScreen }"></v-img>
                 </v-responsive>
 
@@ -23,15 +23,17 @@
                     </v-avatar>
                 </a>
                 <v-card-subtitle>{{ info.email }}</v-card-subtitle>
-                <v-card-subtitle>{{ formatTimestamp(info.posted_at) }}</v-card-subtitle>
+                <v-card-subtitle>{{ postedFromNow }}</v-card-subtitle>
             </div>
         </div>
     </v-card>
 </template>
 
 <script>
+import moment from 'moment';
 export default {
     name: 'PostCard',
+
     data() {
         return {
             imageUrl: 'path-to-your-image.jpg',
@@ -39,14 +41,14 @@ export default {
         };
     },
     props: ["info"],
+    computed: {
+        postedFromNow() {
+            return moment(this.info.time).fromNow();
+        },
+    },
     methods: {
         checkScreenSize() {
             this.isSmallScreen = this.$vuetify.breakpoint.smAndDown;
-        },
-        formatTimestamp(timestamp) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-            const date = new Date(parseInt(timestamp)); // Convert to integer before creating Date object
-            return date.toLocaleDateString('en-US', options);
         },
     },
     mounted() {
