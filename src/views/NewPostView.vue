@@ -34,7 +34,7 @@
 import store from '../store';
 import { auth, db, firebase } from "../firebase";
 import { doc, setDoc, addDoc, collection } from "firebase/firestore";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 
 export default {
@@ -66,6 +66,10 @@ export default {
         const storageRef = ref(storage, imageName);
         uploadBytes(storageRef, blobData).then((snapshot) => {
           alert('Uploaded a blob or file!');
+          getDownloadURL(ref(storage, imageName))
+            .then((url) => {
+              console.log("Javni link", url);
+            })
         }).catch(e => {
           alert(e);
         });
