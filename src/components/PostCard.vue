@@ -1,5 +1,5 @@
 <template>
-    <v-card :to="'/post'" exact tile height="350px" max-width="800" color="#EBE2B4" class="mx-auto my-12">
+    <v-card :to="'/post/' + info.id" exact tile height="350px" max-width="800" color="#EBE2B4" class="mx-auto my-12">
         <div class="d-flex">
             <div>
 

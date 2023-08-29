@@ -3,6 +3,7 @@
     <v-spacer></v-spacer>
     <h1>Student Feed</h1>
     <PostCard v-for="card in cards" :key="card.id" :info="card" />
+
   </v-container>
 </template>
 

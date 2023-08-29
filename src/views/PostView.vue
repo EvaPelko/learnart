@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <br>
-    <h2 class="stroke">How to draw a hand</h2>
+    <h2 class="stroke">{{ postId.title }}</h2>
     <br>
     <div id="div-color">
       <div class="d-flex flex-row bg-surface-variant">
@@ -129,10 +129,11 @@
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld'
+
 
 export default {
   name: 'PostView',
+  props: ['postId'],
   data() {
     return {
       commentText: '',
@@ -141,8 +142,17 @@ export default {
       reportDialog: false,
       imageUrl: '../assets/hand-drawing.jpg',
       dialog: false,
+      post: null,
       rules: [v => v.length <= 25 || 'Max 700 characters'],
     };
+  },
+  computed: {
+    selectedPost() {
+      return this.posts.find(post => post.id === this.postId);
+    },
+  },
+  async mounted() {
+    await this.fetchPostData(this.postId);
   },
   methods: {
     postComment() {
@@ -171,6 +181,18 @@ export default {
     },
     showFullSize() {
       this.dialog = true;
+    },
+    async fetchPostData(postId) {
+      try {
+        // Replace this with your actual code to fetch the post data
+        const response = await fetch(`/api/posts/${postId}`);
+        const postData = await response.json();
+
+        // Set the fetched post data to the 'post' property
+        this.post = postData;
+      } catch (error) {
+        console.error('Error fetching post data:', error);
+      }
     },
   },
   components: {

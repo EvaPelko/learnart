@@ -8,11 +8,11 @@
       <v-card>
         <div id="div-color" max-width="800px" style="padding: 20px">
           <v-card-text>
-            <v-form v-model="valid">
+            <v-form v-model="valid" ref="form">
               <v-text-field v-model="newTitleText" label="Write a title" outlined dense class="post-input"
-                @keyup.enter="postTitle"></v-text-field>
-              <v-text-field v-model="newPostText" label="Write text" outlined dense auto-grow name="input-7-1"
-                variant="filled" :rules="rules" :model-value="value" counter @keyup.enter="postText"></v-text-field>
+                @keyup.enter="postTitle" :rules="[rules.required]"></v-text-field>
+              <v-text-field v-model="newPostText" label="Write text" outlined dense variant="filled"
+                :rules="[rules.required, rules.maxLength]" counter rows="8" max-height="160px"></v-text-field>
             </v-form>
 
             <croppa :width="400" :height="400" v-model="imageReference"></croppa>
@@ -36,7 +36,6 @@ import { auth, db, firebase } from "../firebase";
 import { doc, setDoc, addDoc, collection } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-
 export default {
   data() {
     return {
@@ -47,8 +46,10 @@ export default {
       imageReference: null,
       valid: true,
       store,
-      rules: [v => v.length <= 25 || 'Max 5000 characters'],
-
+      rules: {
+        required: v => !!v || "This field is required",
+        maxLength: v => (v && v.length <= 25) || "Max 25 characters",
+      }
     };
   },
   methods: {
@@ -56,50 +57,52 @@ export default {
       this.isSmallScreen = this.$vuetify.breakpoint.smAndDown; // Adjust breakpoint as needed
     },
     post() {
-      this.imageReference.generateBlob((blobData) => {
-        console.log(blobData);
+      if (this.$refs.form.validate()) {
+        this.imageReference.generateBlob((blobData) => {
+          console.log(blobData);
 
-        let imageName = 'posts/' + store.currentUser + "/" + Date.now() + ".png";
-        console.log(imageName);
+          let imageName = 'posts/' + store.currentUser + "/" + Date.now() + ".png";
+          console.log(imageName);
 
-        const storage = getStorage();
-        const storageRef = ref(storage, imageName);
-        uploadBytes(storageRef, blobData).then((snapshot) => {
-          alert('Uploaded a blob or file!');
-          getDownloadURL(ref(storage, imageName))
-            .then((url) => {
-              console.log("Javni link", url);
+          const storage = getStorage();
+          const storageRef = ref(storage, imageName);
+          uploadBytes(storageRef, blobData).then((snapshot) => {
+            alert('Uploaded a blob or file!');
+            getDownloadURL(ref(storage, imageName))
+              .then((url) => {
+                console.log("Javni link", url);
 
-              const titleText = this.newTitleText;
-              const postText = this.newPostText;
+                const titleText = this.newTitleText;
+                const postText = this.newPostText;
 
-              const docRef = addDoc(collection(db, "posts"), {
-                url: url,
-                title: titleText,
-                text: postText,
-                posted_at: Date.now(),
-                email: store.currentUser,
-              }).then(() => {
-                console.log("Spremljen dokument ", doc);
-                alert('Spremljen dokument');
-                this.newTitleText = "";
-                this.newPostText = "";
-                this.imageReference.remove();
-              }
-              )
-                .catch((e) => {
-                  console.error(e);
-                  alert(e);
+                const docRef = addDoc(collection(db, "posts"), {
+                  url: url,
+                  title: titleText,
+                  text: postText,
+                  posted_at: Date.now(),
+                  email: store.currentUser,
+                }).then(() => {
+                  console.log("Spremljen dokument ", doc);
+                  alert('Spremljen dokument');
+                  this.newTitleText = "";
+                  this.newPostText = "";
+                  this.imageReference.remove();
                 }
-                );
+                )
+                  .catch((e) => {
+                    console.error(e);
+                    alert(e);
+                  }
+                  );
 
-            })
-        }).catch(e => {
-          alert(e);
+              })
+          }).catch(e => {
+            alert(e);
+          });
+
         });
 
-      });
-
+      }
     }
   },
   mounted() {
@@ -117,3 +120,11 @@ export default {
 
 };
 </script>
+
+<style scoped>
+.auto-expand-text-field {
+  height: auto !important;
+  min-height: 50px;
+  /* Set a minimum height to prevent it from being too small */
+}
+</style>
