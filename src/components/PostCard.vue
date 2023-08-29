@@ -4,19 +4,17 @@
             <div>
 
                 <v-responsive class="ma-4">
-                    <v-img src="../assets/hand-drawing.jpg" alt="Responsive Image" class="mx-auto" max-width="320px"
+                    <v-img src=info.url alt="Responsive Image" class="mx-auto" max-width="320px"
                         :class="{ 'shrink-img': isSmallScreen }"></v-img>
                 </v-responsive>
 
             </div>
             <div>
                 <br>
-                <v-card-title>How to draw a hand</v-card-title>
+                <v-card-title>{{ info.title }}</v-card-title>
                 <v-card-text class="text-left roboto-font text-subtitle-1">
-                    Drawing hands can be challenging, but with practice and some tips, you can improve your hand-drawing
-                    skills. Here's a step-by-step guide to help you get started:
-
-                    Study Hand Anatomy: Understanding the basic structure... <span style="color: #216EE1">Read
+                    {{ info.text.substring(0, 150) + (info.text.length > 150 ? '...' : '') }}<span
+                        style="color: #216EE1">Read
                         more</span>
                 </v-card-text>
                 <a href="/profile">
@@ -24,7 +22,8 @@
                         <v-img src="../assets/User.jpg"> </v-img>
                     </v-avatar>
                 </a>
-                <v-card-subtitle>Jane Smith</v-card-subtitle>
+                <v-card-subtitle>{{ info.email }}</v-card-subtitle>
+                <v-card-subtitle>{{ formatTimestamp(info.posted_at) }}</v-card-subtitle>
             </div>
         </div>
     </v-card>
@@ -43,6 +42,11 @@ export default {
     methods: {
         checkScreenSize() {
             this.isSmallScreen = this.$vuetify.breakpoint.smAndDown;
+        },
+        formatTimestamp(timestamp) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+            const date = new Date(parseInt(timestamp)); // Convert to integer before creating Date object
+            return date.toLocaleDateString('en-US', options);
         },
     },
     mounted() {

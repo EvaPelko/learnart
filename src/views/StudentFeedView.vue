@@ -2,7 +2,7 @@
   <v-container>
     <v-spacer></v-spacer>
     <h1>Student Feed</h1>
-    <PostCard v-for="url in cards" :key="url" :info="cards" />
+    <PostCard v-for="card in cards" :key="card.id" :info="card" />
   </v-container>
 </template>
 
@@ -15,11 +15,7 @@ export default {
   data() {
     return {
       store,
-      cards: [
-        "https://picsum.photos/id/1/400/400",
-        "https://picsum.photos/id/2/400/400",
-        "https://picsum.photos/id/3/400/400"
-      ],
+      cards: [],
     };
   },
   components: {
@@ -27,20 +23,23 @@ export default {
   },
   methods: {
     async getPosts() {
-      let cards = [];
+      const cards = [];
       const db = getFirestore();
       const querySnapshot = await getDocs(collection(db, "posts"));
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
         const data = doc.data();
-        let cards = {
+        const card = {
           id: doc.id,
+          url: data.url,
           time: data.posted_at,
           email: data.email,
           title: data.title,
           text: data.text,
-        }
+        };
+        cards.push(card);
       });
+      this.cards = cards;
     },
   },
   mounted() {
