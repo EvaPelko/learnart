@@ -69,32 +69,36 @@ export default {
           getDownloadURL(ref(storage, imageName))
             .then((url) => {
               console.log("Javni link", url);
+
+              const titleText = this.newTitleText;
+              const postText = this.newPostText;
+
+              const docRef = addDoc(collection(db, "posts"), {
+                url: url,
+                title: titleText,
+                text: postText,
+                posted_at: Date.now(),
+                email: store.currentUser,
+              }).then(() => {
+                console.log("Spremljen dokument ", doc);
+                alert('Spremljen dokument');
+                this.newTitleText = "";
+                this.newPostText = "";
+                this.imageReference.remove();
+              }
+              )
+                .catch((e) => {
+                  console.error(e);
+                  alert(e);
+                }
+                );
+
             })
         }).catch(e => {
           alert(e);
         });
 
       });
-      const titleText = this.newTitleText;
-      const postText = this.newPostText;
-
-      const docRef = addDoc(collection(db, "posts"), {
-        title: titleText,
-        text: postText,
-        posted_at: Date.now(),
-        email: store.currentUser,
-      }).then(() => {
-        console.log("Spremljen dokument ", doc);
-        alert('Spremljen dokument');
-        this.newTitleText = "";
-        this.newPostText = "";
-      }
-      )
-        .catch((e) => {
-          console.error(e);
-          alert(e);
-        }
-        );
 
     }
   },
