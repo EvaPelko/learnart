@@ -129,6 +129,7 @@ export default {
                     ProfileType: profileType,
                 })
                 console.log("User data saved:", userData);
+
             } catch (error) {
                 console.error("Error saving user data:", error);
             }
@@ -147,7 +148,8 @@ export default {
 
                 await this.saveAdditionalData(user, email, firstName, lastName, profileType);
 
-                alert('Account successfully made! Welcome ' + this.firstName);
+                alert('Account successfully made! Welcome ' + this.firstName + '!');
+                clearFormData();
             } catch (error) {
                 console.error(error);
                 this.errorMessage = error.message;

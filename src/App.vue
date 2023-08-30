@@ -19,40 +19,18 @@
         <v-row>
           <v-col cols="auto">
             <v-btn text to="/landing">Landing</v-btn>
-            <v-menu v-model="openDropdownTeacher" offset-y open-on-hover>
-              <template v-slot:activator="{ on }">
-                <v-btn text v-on="on" to="/teacherfeed">
-                  Teacher Feed
-                  <v-icon right>mdi-menu-down</v-icon>
-                </v-btn>
-              </template>
 
-              <v-list>
-                <v-list-item v-for="item in dropdownItemsTeacher" :key="item.title"
-                  @click="handleDropdownItemClick(item)">
-                  <router-link :to="item.route" @click="closeDropdown">
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                  </router-link>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-            <v-menu v-model="openDropdownStudent" offset-y open-on-hover>
-              <template v-slot:activator="{ on }">
-                <v-btn text @click.stop="openDropdownStudent = !openDropdownStudent" v-on="on" to="/studentfeed">Student
-                  Feed
-                  <v-icon right>mdi-menu-down</v-icon>
-                </v-btn>
-              </template>
+            <v-btn text v-on="on" to="/teacherfeed">
+              Teacher Feed
 
-              <v-list>
-                <v-list-item v-for="item in dropdownItemsStudent" :key="item.title"
-                  @click="handleDropdownItemClick(item)">
-                  <router-link :to="item.route" @click="closeDropdown">
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                  </router-link>
-                </v-list-item>
-              </v-list>
-            </v-menu>
+            </v-btn>
+
+
+            <v-btn text @click.stop="openDropdownStudent = !openDropdownStudent" v-on="on" to="/studentfeed">Student
+              Feed
+
+            </v-btn>
+
 
 
             <v-btn v-if="store.currentUser" text to="/newpost">New Post</v-btn>

@@ -26,7 +26,7 @@
       </p>
       <v-img :src="post.url" alt="Responsive Image" class="mx-auto" max-width="320px" @click="showFullSize"></v-img>
       <v-dialog v-model="dialog" max-width="800px">
-        <v-img src="../assets/hand-drawing.jpg" contain></v-img>
+        <v-img :src="post.url" contain></v-img>
       </v-dialog>
       <br>
     </div>
