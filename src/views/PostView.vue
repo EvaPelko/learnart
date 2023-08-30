@@ -102,10 +102,9 @@ export default {
   },
   async mounted() {
     await this.fetchPostData(this.postId);
-  },
-  mounted() {
     this.getComments();
   },
+
   methods: {
     async postComment() {
       if (this.newCommentText.trim() !== '') {
@@ -143,15 +142,18 @@ export default {
     async getComments() {
       const cards = [];
       const db = getFirestore();
+
       const querySnapshot = await getDocs(collection(db, "comments"));
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
         const data = doc.data();
-        const card = {
-          id: doc.id,
-          text: data.text,
-        };
-        cards.push(card);
+        if (data.postId === this.postId) {
+          const card = {
+            id: doc.id,
+            text: data.text,
+          };
+          cards.push(card);
+        }
       });
 
       // Sort the cards array by time property in descending order

@@ -12,7 +12,7 @@
 
         </div>
         <p class="text-left roboto-font mx-15">{{ info.text }}</p>
-        <p class="text-left mx-15">{{ postedFromNow }}</p>
+        <p class="text-left roboto-font mx-15">{{ postedFromNow }}</p>
     </div>
 </template>
 
