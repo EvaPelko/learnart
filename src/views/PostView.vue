@@ -65,35 +65,22 @@
         <v-btn @click="postComment" color="#99CBDB" dark class="mx-15">Post</v-btn>
       </div>
     </div>
-    <div style="background-color: #EBE2B4; padding: 10px">
-      <div class="d-flex flex-row bg-surface-variant">
-        <v-sheet class=" transparent-sheet"><a href="/profile">
-            <v-avatar class="ma-4" size="50">
-              <v-img src="../assets/User.jpg"></v-img>
-            </v-avatar>
-          </a></v-sheet>
-        <v-sheet class=" transparent-sheet">
-          <p class="text-left mt-6">Holly543</p>
-        </v-sheet>
-
-      </div>
-      <p class="text-left roboto-font mx-15">Wow, thank you so much for your guidance on learning to draw hands! Your
-        advice really helped me improve my
-        skills. I never thought I could capture the intricacies of hands until I followed your tips. Your encouragement to
-        observe and practice different hand positions made all the difference. Now, I feel more confident and excited to
-        tackle other challenging subjects in my artwork. You're an amazing art teacher!</p>
-    </div>
+    <CommentCard v-for="card in cards" :key="card.id" :info="card" />
   </v-container>
 </template>
 
 <script>
 import store from '../store';
 import { db, firebase } from "../firebase";
-import { getFirestore, doc, getDoc, addDoc, ref, collection } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, addDoc, ref, collection, getDocs } from 'firebase/firestore';
+import CommentCard from '../components/CommentCard'
 
 
 export default {
   name: 'PostView',
+  components: {
+    CommentCard,
+  },
   props: ['postId'],
   data() {
     return {
@@ -104,6 +91,7 @@ export default {
       imageUrl: '../assets/hand-drawing.jpg',
       dialog: false,
       post: null,
+      cards: [],
       rules: [v => v.length <= 700 || 'Max 700 characters'],
     };
   },
@@ -114,6 +102,9 @@ export default {
   },
   async mounted() {
     await this.fetchPostData(this.postId);
+  },
+  mounted() {
+    this.getComments();
   },
   methods: {
     async postComment() {
@@ -148,6 +139,25 @@ export default {
         }
       }
 
+    },
+    async getComments() {
+      const cards = [];
+      const db = getFirestore();
+      const querySnapshot = await getDocs(collection(db, "comments"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        const data = doc.data();
+        const card = {
+          id: doc.id,
+          text: data.text,
+        };
+        cards.push(card);
+      });
+
+      // Sort the cards array by time property in descending order
+      cards.sort((a, b) => b.time - a.time);
+
+      this.cards = cards;
     },
     toggleLike() {
       this.isLiked = !this.isLiked;
@@ -187,9 +197,7 @@ export default {
       }
     },
   },
-  components: {
-    // Your components here
-  },
+
 };
 
 </script>
