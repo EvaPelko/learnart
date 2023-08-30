@@ -1,5 +1,6 @@
 <template>
-    <v-card :to="'/post/' + info.id" exact tile height="350px" max-width="800" color="#EBE2B4" class="mx-auto my-12">
+    <v-card :to="{ name: 'post-view', params: { postId: info.id } }" exact tile height="350px" max-width="800"
+        color="#EBE2B4" class="mx-auto my-12">
         <div class="d-flex">
             <div>
 
@@ -13,8 +14,8 @@
                 <br>
                 <v-card-title>{{ info.title }}</v-card-title>
                 <v-card-text class="text-left roboto-font text-subtitle-1">
-                    {{ info.text.substring(0, 150) + (info.text.length > 150 ? '...' : '') }}<span
-                        style="color: #216EE1">Read
+                    {{ info.text.substring(0, 150) + (info.text.length > 150 ? '...' : '') }}<span style="color: #216EE1">
+                        Read
                         more</span>
                 </v-card-text>
                 <a href="/profile">

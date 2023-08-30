@@ -56,7 +56,7 @@
 
 
             <v-btn v-if="store.currentUser" text to="/newpost">New Post</v-btn>
-            <v-btn v-if="store.currentUser" text to="/profile">
+            <v-btn v-if="store.currentUser" text to="/my-profile">
               Profile
             </v-btn>
             <v-btn v-if="!store.currentUser" text to="/login">Login</v-btn>

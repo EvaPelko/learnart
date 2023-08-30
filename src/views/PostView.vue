@@ -5,11 +5,12 @@
     <br>
     <div id="div-color">
       <div class="d-flex flex-row bg-surface-variant">
-        <v-sheet class="ma-2 pa-2 transparent-sheet"><a href="/profile">
+        <v-sheet class="ma-2 pa-2 transparent-sheet"><router-link
+            :to="{ name: 'profile-view', params: { userEmail: post.email } }">
             <v-avatar class="ma-4" size="50">
               <v-img src="../assets/User.jpg"></v-img>
             </v-avatar>
-          </a></v-sheet>
+          </router-link></v-sheet>
         <v-sheet class=" transparent-sheet">
           <p class="text-left mt-10">{{ post.email }}</p>
         </v-sheet>

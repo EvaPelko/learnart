@@ -13,7 +13,7 @@ import WelcomeView from '../views/WelcomeView.vue'
 import PostView from '../views/PostView.vue'
 import NewPostView from '../views/NewPostView.vue'
 import AboutView from '../views/AboutView.vue'
-
+import MyProfileView from '../views/MyProfileView.vue'
 
 Vue.use(VueRouter)
 
@@ -35,9 +35,16 @@ const routes = [
     component: RegisterView
   },
   {
-    path: '/profile',
+    path: '/profile/:postId',
     name: 'profile-view',
-    component: ProfileView
+    component: ProfileView,
+    props: true
+  },
+  {
+    path: '/my-profile',
+    name: 'my-profile-view',
+    component: MyProfileView,
+    props: true
   },
   {
     path: '/landing',

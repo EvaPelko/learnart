@@ -14,7 +14,7 @@
             </v-avatar>
           </a></v-sheet>
         <v-sheet class=" transparent-sheet">
-          <p class="text-left mt-10">Jane Smith</p>
+          <p class="text-left mt-10">{{ $route.params.userEmail }}</p>
         </v-sheet>
         <v-sheet class="transparent-sheet mt-10 ml-7">
           <v-img src="../assets/check.svg" alt="Responsive Image" class="mx-auto" max-width="30px"></v-img>
@@ -23,13 +23,7 @@
           <p class="text-left mt-6" style="color: #216EE1">TEACHER</p>
         </v-sheet>
       </div>
-      <p class="text-left roboto-font mx-10">Hello there! I'm an art teacher, and I couldn't be more thrilled to share my
-        passion for creativity and artistic expression with my students. With a paintbrush in one hand and a heart full of
-        inspiration, I guide aspiring artists on a journey of self-discovery and artistic growth.
-        <br><br>
-        I attended the prestigious Art Academy of Creative Expression, renowned for its innovative approach to art
-        education. It was at this esteemed institution that I honed my artistic skills and developed a deep appreciation
-        for various artistic disciplines.
+      <p class="text-left roboto-font mx-10">Hello there! My email is {{ userEmail }}. I'm new!
       </p>
       <br>
     </div>
@@ -37,13 +31,46 @@
 </template>
 
 <script>
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
+
+import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
 export default {
   name: 'ProfileView',
-
+  props: ['userEmail'],
+  data() {
+    return {
+      store,
+      post: null,
+      email: store.currentUser,
+    }
+  },
   components: {
 
   },
+  async mounted() {
+    console.log('userEmail prop:', this.userEmail);
+    await this.fetchUserData(this.userEmail);
+  },
+  methods: {
+    async fetchPostData(userEmail) {
+      try {
+        const db = getFirestore()
+        const usersCollection = collection(db, 'users'); // Replace 'users' with your collection name
+        const q = query(usersCollection, where('email', '==', userEmail));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          // Assuming there's only one user with a given email
+          const userDoc = querySnapshot.docs[0];
+          console.log("Document data:", userDoc.data());
+          this.post = userDoc.data();
+        } else {
+          console.log("No user with such email found.");
+        }
+      } catch (error) {
+        console.error('Error fetching user data: ', error);
+      }
+    },
+  }
 }
 </script>
