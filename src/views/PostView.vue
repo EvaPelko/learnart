@@ -59,7 +59,7 @@
     <div id="div-color" style="padding: 10px">
       <p>Comments</p>
       <div class="comment-container">
-        <v-textarea v-model="commentText" label="Write a comment..." outlined dense class="comment-input mx-15"
+        <v-textarea v-model="newCommentText" label="Write a comment..." outlined dense class="comment-input mx-15"
           :rules="rules" counter @keyup.enter="postComment" rows="2"></v-textarea>
         <v-spacer></v-spacer>
         <v-btn @click="postComment" color="#99CBDB" dark class="mx-15">Post</v-btn>
@@ -87,7 +87,9 @@
 </template>
 
 <script>
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import store from '../store';
+import { db, firebase } from "../firebase";
+import { getFirestore, doc, getDoc, addDoc, ref, collection } from 'firebase/firestore';
 
 
 export default {
@@ -95,7 +97,7 @@ export default {
   props: ['postId'],
   data() {
     return {
-      commentText: '',
+      newCommentText: '',
       isLiked: false,
       saveDialog: false,
       reportDialog: false,
@@ -114,14 +116,38 @@ export default {
     await this.fetchPostData(this.postId);
   },
   methods: {
-    postComment() {
-      if (this.commentText.trim() !== '') {
-        // Perform the logic to post the comment here
-        console.log('Posting comment:', this.commentText);
+    async postComment() {
+      if (this.newCommentText.trim() !== '') {
+        console.log('Posting comment:', this.newCommentText);
 
-        // Clear the input field after posting
-        this.commentText = '';
+        const commentText = this.newCommentText;
+
+        try {
+          const db = getFirestore();
+          const postRef = doc(db, "posts", this.postId);
+          const docSnap = await getDoc(postRef);
+
+          if (docSnap.exists()) {
+            const postId = docSnap.id; // Fetch the post ID from the document snapshot
+            const docRef = await addDoc(collection(db, "comments"), {
+              text: commentText,
+              posted_at: Date.now(),
+              email: store.currentUser,
+              postId: postId, // Use the fetched post ID
+            });
+
+            console.log("Comment posted ", docRef);
+            alert('Comment posted');
+            this.newCommentText = '';
+          } else {
+            console.log("No such document!");
+          }
+        } catch (error) {
+          console.error(error);
+          alert(error);
+        }
       }
+
     },
     toggleLike() {
       this.isLiked = !this.isLiked;

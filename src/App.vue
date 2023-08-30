@@ -112,8 +112,7 @@ export default {
 
       links: [
         'Home',
-        'About Us',
-        'Contact Us',
+
       ],
       store,
     };

@@ -25,7 +25,7 @@
                                 :rules="[rules.required]"></v-select>
                             <div class="form-group">
                                 <label for="profileType">Are you a teacher or a student? </label>
-                                <select v-model="chosenProfileType" id="tipProfila" class="form-control form-control-lg">
+                                <select v-model="chosenProfileType" id="profileType" class="form-control form-control-lg">
                                     <option v-for="k in profileType" :key="k">{{ k }}</option>
                                 </select>
                             </div>
@@ -118,6 +118,7 @@ export default {
             this.experience = null;
             this.isTeacher = null;
             this.profileType = null;
+
         },
         async saveAdditionalData(user, email, firstName, lastName, profileType) {
             try {
@@ -149,7 +150,9 @@ export default {
                 await this.saveAdditionalData(user, email, firstName, lastName, profileType);
 
                 alert('Account successfully made! Welcome ' + this.firstName + '!');
-                clearFormData();
+                // Call the clearFormData method to reset the form
+                this.clearFormData();
+
             } catch (error) {
                 console.error(error);
                 this.errorMessage = error.message;
