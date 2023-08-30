@@ -11,8 +11,8 @@
             <v-form v-model="valid" ref="form">
               <v-text-field v-model="newTitleText" label="Write a title" outlined dense class="post-input"
                 @keyup.enter="postTitle" :rules="[rules.required]"></v-text-field>
-              <v-text-field v-model="newPostText" label="Write text" outlined dense variant="filled"
-                :rules="[rules.required, rules.maxLength]" counter rows="8" max-height="160px"></v-text-field>
+              <v-textarea v-model="newPostText" label="Write text" outlined dense variant="filled"
+                :rules="[rules.required, rules.maxLength]" counter rows="8" max-height="160px"></v-textarea>
             </v-form>
 
             <croppa :width="400" :height="400" v-model="imageReference"></croppa>
@@ -48,7 +48,7 @@ export default {
       store,
       rules: {
         required: v => !!v || "This field is required",
-        maxLength: v => (v && v.length <= 25) || "Max 25 characters",
+        maxLength: v => (v && v.length <= 1000) || "Max 1000 characters",
       }
     };
   },

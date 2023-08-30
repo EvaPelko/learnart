@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld'
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 export default {
   name: 'ProfileView',

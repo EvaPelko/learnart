@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <br>
-    <h2 class="stroke">{{ postId.title }}</h2>
+    <h2 class="stroke">{{ post.title }}</h2>
     <br>
     <div id="div-color">
       <div class="d-flex flex-row bg-surface-variant">
@@ -11,7 +11,7 @@
             </v-avatar>
           </a></v-sheet>
         <v-sheet class=" transparent-sheet">
-          <p class="text-left mt-10">Jane Smith</p>
+          <p class="text-left mt-10">{{ post.email }}</p>
         </v-sheet>
         <v-sheet class="transparent-sheet mt-10 ml-7">
           <v-img src="../assets/check.svg" alt="Responsive Image" class="mx-auto" max-width="30px"></v-img>
@@ -21,52 +21,9 @@
         </v-sheet>
       </div>
 
-      <p class="text-left roboto-font mx-10">Drawing hands can be challenging, but with practice and some tips, you can
-        improve your
-        hand-drawing skills.
-        Here's a step-by-step guide to help you get started:
-        <br>
-        Study Hand Anatomy: Understanding the basic structure of the hand is crucial. Pay attention to the proportions,
-        bone structure, joints, and the position of tendons and muscles.
-        <br>
-        Gesture Drawing: Start with loose and quick gesture drawings. Capture the overall shape and pose of the hand
-        without worrying about details. This helps you establish the foundation of the hand's position and gesture.
-        <br>
-        Basic Shapes: Simplify the hand into basic shapes. The palm can be represented as a rectangle or a square, and the
-        fingers as cylinders or wedges.
-        <br>
-        Proportions: The hand's length is roughly the same as the length of the face from the hairline to the chin. The
-        fingers are usually about three-quarters the length of the palm.
-        <br>
-        Thumb Placement: The thumb is usually positioned lower on the palm and slightly apart from the other fingers. It
-        can be helpful to think of the thumb as a separate shape from the rest of the hand.
-        <br>
-        Joint Locations: Pay attention to the knuckles and other joint locations, as they significantly impact the hand's
-        appearance in various poses.
-        <br>
-        Contour and Details: Once you have the basic shapes and proportions, start refining the contour and adding details
-        like wrinkles, nails, and skin texture. Observe your own hand or use references to make it more realistic.
-        <br>
-        Light and Shadow: Understanding light and shadow is crucial for adding depth and dimension to your drawing.
-        Observe how light falls on your hand or reference photos to replicate the shadows accurately.
-        <br>
-        Practice Regularly: Drawing hands can be challenging, so don't get discouraged if your early attempts don't meet
-        your expectations. Keep practicing regularly, and you'll see improvement over time.
-        <br>
-        Use References: Use photos or your hand as a reference when practicing. This helps you better understand the form
-        and details of the hand.
-        <br>
-        Experiment with Poses: Draw hands in various poses and angles. Practice drawing both relaxed and dynamic hand
-        gestures to improve your overall skill.
-        <br>
-        Be Patient: Drawing hands requires patience and persistence. Don't rush the process, and allow yourself to make
-        mistakes as they are an essential part of learning.
-        <br>
-        Remember, drawing is an art, and there's no single "right" way to do it. Develop your style and keep practicing to
-        improve your hand-drawing skills.
+      <p class="text-left roboto-font mx-10">{{ post.text }}
       </p>
-      <v-img src="../assets/hand-drawing.jpg" alt="Responsive Image" class="mx-auto" max-width="320px"
-        @click="showFullSize"></v-img>
+      <v-img :src="post.url" alt="Responsive Image" class="mx-auto" max-width="320px" @click="showFullSize"></v-img>
       <v-dialog v-model="dialog" max-width="800px">
         <v-img src="../assets/hand-drawing.jpg" contain></v-img>
       </v-dialog>
@@ -129,6 +86,7 @@
 </template>
 
 <script>
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 
 export default {
@@ -184,14 +142,21 @@ export default {
     },
     async fetchPostData(postId) {
       try {
-        // Replace this with your actual code to fetch the post data
-        const response = await fetch(`/api/posts/${postId}`);
-        const postData = await response.json();
+        const db = getFirestore()
+        const postRef = doc(db, "posts", postId);
+        // Fetch the document
+        const docSnap = await getDoc(postRef);
 
-        // Set the fetched post data to the 'post' property
-        this.post = postData;
+        if (docSnap.exists()) {
+          // Document exists, do something with the data
+          console.log("Document data:", docSnap.data());
+          this.post = docSnap.data();
+        } else {
+          // Document does not exist
+          console.log("No such document!");
+        }
       } catch (error) {
-        console.error('Error fetching post data:', error);
+        console.error('Error fetching post data: ', error)
       }
     },
   },
