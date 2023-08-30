@@ -121,10 +121,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.auto-expand-text-field {
-  height: auto !important;
-  min-height: 50px;
-  /* Set a minimum height to prevent it from being too small */
-}
-</style>

@@ -59,8 +59,8 @@
     <div id="div-color" style="padding: 10px">
       <p>Comments</p>
       <div class="comment-container">
-        <v-text-field v-model="commentText" label="Write a comment..." outlined dense class="comment-input mx-15"
-          :rules="rules" counter @keyup.enter="postComment"></v-text-field>
+        <v-textarea v-model="commentText" label="Write a comment..." outlined dense class="comment-input mx-15"
+          :rules="rules" counter @keyup.enter="postComment" rows="2"></v-textarea>
         <v-spacer></v-spacer>
         <v-btn @click="postComment" color="#99CBDB" dark class="mx-15">Post</v-btn>
       </div>
@@ -102,7 +102,7 @@ export default {
       imageUrl: '../assets/hand-drawing.jpg',
       dialog: false,
       post: null,
-      rules: [v => v.length <= 25 || 'Max 700 characters'],
+      rules: [v => v.length <= 700 || 'Max 700 characters'],
     };
   },
   computed: {

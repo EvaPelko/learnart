@@ -61,7 +61,7 @@
 
 <script>
 
-import { auth, db, firebase, createUserWithEmailAndPassword, setDoc } from "../firebase";
+import { auth, db, firebase, createUserWithEmailAndPassword, setDoc, doc } from "../firebase";
 export default {
     name: "RegistrationView",
     components: {},
@@ -119,37 +119,39 @@ export default {
             this.isTeacher = null;
             this.profileType = null;
         },
-        async saveAdditionalData(user, email, firstName, lastName) {
-            await setDoc(doc(db, "users", email), {
-                Email: email,
-                FirstName: firstName,
-                LastName: lastName,
-                AuthorisationType: "USER",
-            });
+        async saveAdditionalData(user, email, firstName, lastName, profileType) {
+            try {
+                await setDoc(doc(db, "users", email), {
+                    Email: email,
+                    FirstName: firstName,
+                    LastName: lastName,
+                    AuthorisationType: "USER",
+                    ProfileType: profileType,
+                })
+                console.log("User data saved:", userData);
+            } catch (error) {
+                console.error("Error saving user data:", error);
+            }
         },
-        registerUser() {
+        async registerUser() {
             console.log({ email: this.email })
 
             const email = this.email;
             const password = this.password;
+            const firstName = this.firstName;
+            const lastName = this.lastName;
+            const profileType = this.chosenProfileType;
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
 
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Signed in
-                    const user = userCredential.user;
-                    const firstName = this.firstName;
-                    const lastName = this.lastName;
-                    let id = this.email;
-                    const profileType = this.chosenProfileType;
+                await this.saveAdditionalData(user, email, firstName, lastName, profileType);
 
-
-                    alert('Account successfully made! Welcome ' + this.firstName);
-                })
-                .catch(error => {
-                    console.error(error);
-                    this.errorMessage = error.message;
-                });
-
+                alert('Account successfully made! Welcome ' + this.firstName);
+            } catch (error) {
+                console.error(error);
+                this.errorMessage = error.message;
+            }
         },
         togglePasswordVisibility() {
             this.showIcon = !this.showIcon;
