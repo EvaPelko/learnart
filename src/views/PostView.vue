@@ -129,6 +129,7 @@ export default {
             console.log("Comment posted ", docRef);
             alert('Comment posted');
             this.newCommentText = '';
+            location.reload();
           } else {
             console.log("No such document!");
           }

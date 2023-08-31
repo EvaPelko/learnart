@@ -90,6 +90,8 @@
 
 <script>
 import store from '../src/store';
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { db, firebase } from "../src/firebase";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 
@@ -132,19 +134,33 @@ export default {
       else if (link == 'About Us') return '/about';
       else if (link === 'Contact Us') return '/contact';
     },
-    isLogged() {
+    async isLogged() {
       const auth = getAuth();
-      onAuthStateChanged(auth, (user) => {
+      onAuthStateChanged(auth, async (user) => {
         if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/auth.user
           const uid = user.uid;
           console.log('Logged in user');
-          store.currentUser = user.email;
+
+          // Fetch additional user data from Firestore based on email
+          try {
+            const docRef = doc(db, "users", user.email);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+              const userData = docSnap.data();
+              store.currentUser = user.email;
+              store.profileType = userData.ProfileType;
+              console.log('email: ', user.email, 'Type: ', userData.ProfileType);
+            } else {
+              console.log("No such document!");
+            }
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+          }
         } else {
-          // User is signed out
           console.log('Logged out user');
           store.currentUser = null;
+          store.profileType = null; // Reset profileType when logged out
         }
       });
     },

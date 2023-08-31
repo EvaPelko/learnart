@@ -26,7 +26,8 @@
                             <div class="form-group">
                                 <label for="profileType">Are you a teacher or a student? </label>
                                 <select v-model="chosenProfileType" id="profileType" class="form-control form-control-lg">
-                                    <option v-for="k in profileType" :key="k">{{ k }}</option>
+                                    <option v-for="profileTypeOption in profileType" :key="profileTypeOption">{{
+                                        profileTypeOption }}</option>
                                 </select>
                             </div>
                             <!--  <v-dialog v-model="uploadDialog" max-width="500">
@@ -61,7 +62,8 @@
 
 <script>
 
-import { auth, db, firebase, createUserWithEmailAndPassword, setDoc, doc } from "../firebase";
+import { auth, db, firebase, createUserWithEmailAndPassword } from "../firebase";
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
 export default {
     name: "RegistrationView",
     components: {},
@@ -69,6 +71,7 @@ export default {
         valid: function (isValid) {
             this.isButtonDisabled = isValid != true;
         },
+
     },
     data() {
         return {
@@ -82,6 +85,7 @@ export default {
             showIcon: false,
             isTeacher: false,
             uploadDialog: false,
+            chosenProfileType: "Student",
             profileType: ["Teacher",
                 "Student"],
 
@@ -94,15 +98,6 @@ export default {
                     "E-mail must be valid",
             },
         };
-    },
-    watch: {
-        isTeacher(newValue) {
-            if (newValue) {
-                this.uploadDialog = true;
-            } else {
-                this.uploadDialog = false;
-            }
-        }
     },
 
 
@@ -143,12 +138,21 @@ export default {
             const firstName = this.firstName;
             const lastName = this.lastName;
             const profileType = this.chosenProfileType;
+            console.log(profileType);
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
-                await this.saveAdditionalData(user, email, firstName, lastName, profileType);
-
+                // Create a user document in Firestore
+                const db = getFirestore();
+                const userDocRef = doc(db, "users", email);
+                await setDoc(userDocRef, {
+                    Email: email,
+                    FirstName: firstName,
+                    LastName: lastName,
+                    AuthorisationType: "USER",
+                    ProfileType: profileType,
+                });
                 alert('Account successfully made! Welcome ' + this.firstName + '!');
                 // Call the clearFormData method to reset the form
                 this.clearFormData();
@@ -160,15 +164,7 @@ export default {
         },
         togglePasswordVisibility() {
             this.showIcon = !this.showIcon;
-        },
-        uploadPictures() {
-            // Handle the upload logic here
-            // You can use this method to process the uploaded pictures
-            // If the upload is canceled, set isTeacher to false
-            this.isTeacher = false;
-            // and close the dialog afterward
-            this.uploadDialog = false;
-        },
+        }
     },
 };
 </script>
