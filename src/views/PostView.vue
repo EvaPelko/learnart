@@ -151,6 +151,8 @@ export default {
           const card = {
             id: doc.id,
             text: data.text,
+            email: data.email,
+            time: data.posted_at,
           };
           cards.push(card);
         }
