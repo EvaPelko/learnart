@@ -66,42 +66,58 @@ export default {
 
           const storage = getStorage();
           const storageRef = ref(storage, imageName);
-          uploadBytes(storageRef, blobData).then((snapshot) => {
-            alert('Uploaded a blob or file!');
-            getDownloadURL(ref(storage, imageName))
-              .then((url) => {
-                console.log("Javni link", url);
+          uploadBytes(storageRef, blobData)
+            .then((snapshot) => {
+              alert('Uploaded a blob or file!');
+              getDownloadURL(ref(storage, imageName))
+                .then((url) => {
+                  const titleText = this.newTitleText;
+                  const postText = this.newPostText;
+                  const postDoc = {
+                    url: url,
+                    title: titleText,
+                    text: postText,
+                    posted_at: Date.now(),
+                    email: store.currentUser,
+                    userRole: store.profileType,
+                  };
 
-                const titleText = this.newTitleText;
-                const postText = this.newPostText;
-
-                const docRef = addDoc(collection(db, "posts"), {
-                  url: url,
-                  title: titleText,
-                  text: postText,
-                  posted_at: Date.now(),
-                  email: store.currentUser,
-                }).then(() => {
-                  console.log("Spremljen dokument ", doc);
-                  alert('Spremljen dokument');
-                  this.newTitleText = "";
-                  this.newPostText = "";
-                  this.imageReference.remove();
-                }
-                )
-                  .catch((e) => {
-                    console.error(e);
-                    alert(e);
+                  if (store.profileType === "Student") {
+                    const studentPostsRef = collection(db, "student-posts");
+                    addDoc(studentPostsRef, postDoc)
+                      .then(() => {
+                        alert('Post saved to student-posts collection');
+                        this.newTitleText = "";
+                        this.newPostText = "";
+                        this.imageReference.remove();
+                      })
+                      .catch((error) => {
+                        console.error(error);
+                        alert('Error saving post: ' + error);
+                      });
+                  } else if (store.profileType === "Teacher") {
+                    const teacherPostsRef = collection(db, "teacher-posts");
+                    addDoc(teacherPostsRef, postDoc)
+                      .then(() => {
+                        alert('Post saved to teacher-posts collection');
+                        this.newTitleText = "";
+                        this.newPostText = "";
+                        this.imageReference.remove();
+                      })
+                      .catch((error) => {
+                        console.error(error);
+                        alert('Error saving post: ' + error);
+                      });
                   }
-                  );
-
-              })
-          }).catch(e => {
-            alert(e);
-          });
-
+                })
+                .catch(e => {
+                  alert(e);
+                });
+            })
+            .catch(e => {
+              alert(e);
+            });
         });
-
       }
     }
   },

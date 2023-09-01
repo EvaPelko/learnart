@@ -26,7 +26,7 @@ export default {
     async getPosts() {
       const cards = [];
       const db = getFirestore();
-      const querySnapshot = await getDocs(collection(db, "posts"));
+      const querySnapshot = await getDocs(collection(db, "student-posts"));
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
         const data = doc.data();

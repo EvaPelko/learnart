@@ -14,12 +14,7 @@
         <v-sheet class=" transparent-sheet">
           <p class="text-left mt-10">{{ post.email }}</p>
         </v-sheet>
-        <v-sheet class="transparent-sheet mt-10 ml-7">
-          <v-img src="../assets/check.svg" alt="Responsive Image" class="mx-auto" max-width="30px"></v-img>
-        </v-sheet>
-        <v-sheet class="ma-2 pa-2 transparent-sheet">
-          <p class="text-left mt-6" style="color: #216EE1">TEACHER</p>
-        </v-sheet>
+
       </div>
 
       <p class="text-left roboto-font mx-10">{{ post.text }}
@@ -77,7 +72,7 @@ import CommentCard from '../components/CommentCard'
 
 
 export default {
-  name: 'PostView',
+  name: 'StudentPostView',
   components: {
     CommentCard,
   },
@@ -114,7 +109,7 @@ export default {
 
         try {
           const db = getFirestore();
-          const postRef = doc(db, "teacher-posts", this.postId);
+          const postRef = doc(db, "student-posts", this.postId);
           const docSnap = await getDoc(postRef);
 
           if (docSnap.exists()) {
@@ -184,7 +179,7 @@ export default {
     async fetchPostData(postId) {
       try {
         const db = getFirestore()
-        const postRef = doc(db, "teacher-posts", postId);
+        const postRef = doc(db, "student-posts", postId);
         // Fetch the document
         const docSnap = await getDoc(postRef);
 

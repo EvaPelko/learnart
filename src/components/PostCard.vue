@@ -1,6 +1,5 @@
 <template>
-    <v-card :to="{ name: 'post-view', params: { postId: info.id } }" exact tile height="350px" max-width="800"
-        color="#EBE2B4" class="mx-auto my-12">
+    <v-card :to="getCardLink" exact tile height="350px" max-width="800" color="#EBE2B4" class="mx-auto my-12">
         <div class="d-flex">
             <div>
 
@@ -45,6 +44,15 @@ export default {
     computed: {
         postedFromNow() {
             return moment(this.info.time).fromNow();
+        },
+        getCardLink() {
+            // Check the current route name and return the appropriate route name with parameters
+            if (this.$route.name === 'teacher-feed-view') {
+                return { name: 'post-view', params: { postId: this.info.id } };
+            }
+            if (this.$route.name === 'student-feed-view') {
+                return { name: 'student-post-view', params: { postId: this.info.id } };
+            }
         },
     },
     methods: {

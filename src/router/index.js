@@ -14,6 +14,7 @@ import PostView from '../views/PostView.vue'
 import NewPostView from '../views/NewPostView.vue'
 import AboutView from '../views/AboutView.vue'
 import MyProfileView from '../views/MyProfileView.vue'
+import StudentPostView from '../views/StudentPostView.vue'
 
 Vue.use(VueRouter)
 
@@ -65,6 +66,12 @@ const routes = [
     path: '/post/:postId',
     name: 'post-view',
     component: PostView,
+    props: true
+  },
+  {
+    path: '/studentpost/:postId',
+    name: 'student-post-view',
+    component: StudentPostView,
     props: true
   },
   {
